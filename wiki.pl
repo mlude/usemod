@@ -576,15 +576,12 @@ sub BrowsePage {
   $fullHtml .= '<div class=wikitext>';
   $fullHtml .= &WikiToHTML($Text{'text'});
   $fullHtml .= '</div>';
-  if (!&GetParam('embed', $EmbedWiki)) {
-    $fullHtml .= "<hr class=wikilinefooter>\n";
-  }
   if (($id eq $RCName) || (T($RCName) eq $id) || (T($id) eq $RCName)) {
     print $fullHtml;
+    print "<hr class=wikilinerc>\n";
     print '<div class=wikirc>';
     &DoRc(1);
     print '</div>';
-    print "<hr class=wikilinefooter>\n"  if (!&GetParam('embed', $EmbedWiki));
     print &GetFooterText($id, $goodRevision);
     return;
   }
@@ -1393,6 +1390,7 @@ sub GetFooterText {
     return $q->end_html;
   }
   $result = '<div class=wikifooter>';
+  $result .= "<hr class=wikilinefooter>\n";
   $result .= &GetFormStart();
   $result .= &GetGotoBar($id);
   if (&UserCanEdit($id, 0)) {
@@ -1456,7 +1454,7 @@ sub GetFooterText {
 sub GetCommonFooter {
   my ($html);
 
-  $html = '<hr class=wikilinefooter>' . '<div class=wikifooter>'
+  $html = '<div class=wikifooter>' . '<hr class=wikilinefooter>'
           . &GetFormStart() . &GetGotoBar('')
           . &GetSearchForm() . $q->endform;
   if ($FooterNote ne '') {
@@ -3298,9 +3296,9 @@ sub DoEdit {
           &GetTextArea('newtext', $newText, $editRows, $editCols),
           "<p>\n";
   }
-  print "<hr class=wikilinefooter>\n";
   if ($preview) {
     print '<div class=wikipreview>';
+    print "<hr class=wikilinepreview>\n";
     print "<h2>", T('Preview:'), "</h2>\n";
     if ($isConflict) {
       print "<b>",
@@ -3309,15 +3307,18 @@ sub DoEdit {
     }
     $MainPage = $id;
     $MainPage =~ s|/.*||;  # Only the main page name (remove subpage)
-    print &WikiToHTML($oldText) . "<hr class=wikilinefooter>\n";
+    print &WikiToHTML($oldText) . "<hr class=wikilinepreview>\n";
     print "<h2>", T('Preview only, not yet saved'), "</h2>\n";
     print '</div>';
   }
-  print '<div class=wikifooter>';
-  print &GetHistoryLink($id, T('View other revisions')) . "<br>\n";
-  print &GetGotoBar($id);
-  print '</div>';
   print $q->endform;
+  if (!&GetParam('embed', $EmbedWiki)) {
+    print '<div class=wikifooter>';
+    print "<hr class=wikilinefooter>\n";
+    print &GetHistoryLink($id, T('View other revisions')) . "<br>\n";
+    print &GetGotoBar($id);
+    print '</div>';
+  }
   print &GetMinimumFooter();
 }
 
@@ -3418,10 +3419,12 @@ sub DoEditPrefs {
   print '<br>', $q->submit(-name=>'Save', -value=>T('Save')), "\n";
   print $q->endform;
   print '</div>';
-  print "<hr class=wikilinefooter>\n";
-  print '<div class=wikifooter>';
-  print &GetGotoBar('');
-  print '</div>';
+  if (!&GetParam('embed', $EmbedWiki)) {
+    print '<div class=wikifooter>';
+    print "<hr class=wikilinefooter>\n";
+    print &GetGotoBar('');
+    print '</div>';
+  }
   print &GetMinimumFooter();
 }
 
@@ -3640,9 +3643,13 @@ sub DoEnterLogin {
         $q->password_field(-name=>'p_password', -value=>'', 
                            -size=>15, -maxlength=>50);
   print '<br>', $q->submit(-name=>'Login', -value=>T('Login')), "\n";
-  print "<hr class=wikilinefooter>\n";
-  print &GetGotoBar('');
   print $q->endform;
+  if (!&GetParam('embed', $EmbedWiki)) {
+    print '<div class=wikifooter>';
+    print "<hr class=wikilinefooter>\n";
+    print &GetGotoBar('');
+    print '</div>';
+  }
   print &GetMinimumFooter();
 }
 
@@ -3672,9 +3679,12 @@ sub DoLogin {
   } else {
     print Ts('Login for user ID %s failed.', $uid);
   }
-  print "<hr class=wikilinefooter>\n";
-  print &GetGotoBar('');
-  print $q->endform;
+  if (!&GetParam('embed', $EmbedWiki)) {
+    print '<div class=wikifooter>';
+    print "<hr class=wikilinefooter>\n";
+    print &GetGotoBar('');
+    print '</div>';
+  }
   print &GetMinimumFooter();
 }
 
@@ -4435,9 +4445,13 @@ sub DoEditBanned {
         "^123\\.21\\.3\\.\\d+\$<p>";
   print &GetTextArea('banlist', $banList, 12, 50);
   print "<br>", $q->submit(-name=>'Save'), "\n";
-  print "<hr class=wikilinefooter>\n";
-  print &GetGotoBar("");
   print $q->endform;
+  if (!&GetParam('embed', $EmbedWiki)) {
+    print '<div class=wikifooter>';
+    print "<hr class=wikilinefooter>\n";
+    print &GetGotoBar('');
+    print '</div>';
+  }
   print &GetMinimumFooter();
 }
 
@@ -4487,9 +4501,13 @@ sub DoEditLinks {
   print $q->checkbox(-name=>"p_changetext", -override=>1, -checked=>1,
                       -label=>"Substitute text for rename");
   print "<br>", $q->submit(-name=>'Edit'), "\n";
-  print "<hr class=wikilinefooter>\n";
-  print &GetGotoBar("");
   print $q->endform;
+  if (!&GetParam('embed', $EmbedWiki)) {
+    print '<div class=wikifooter>';
+    print "<hr class=wikilinefooter>\n";
+    print &GetGotoBar('');
+    print '</div>';
+  }
   print &GetMinimumFooter();
 }
 
