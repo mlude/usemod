@@ -383,7 +383,7 @@ sub Ts {
 }
 
 sub Tss {
-  my $text = @_[0];
+  my $text = $_[0];
   my @args = @_;
 
   @args = map {
