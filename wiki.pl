@@ -998,11 +998,11 @@ sub DoHistory {
   $canEdit = &UserCanEdit($id)  if ($HistoryEdit);
   if ($UseDiff) {
     print <<EOF ;
-      <form action='$ScriptName' METHOD='GET'>
-          <input type='hidden' name='action' value='browse'/>
-          <input type='hidden' name='diff' value='1'/>
-          <input type='hidden' name='id' value='$id'/>
-      <table border='0' width='100%'><tr>
+      <form action="$ScriptName" METHOD="GET">
+          <input type="hidden" name="action" value="browse"/>
+          <input type="hidden" name="diff" value="1"/>
+          <input type="hidden" name="id" value="$id"/>
+      <table border="0" width="100%"><tr>
 EOF
   }
   $html = &GetHistoryLine($id, $Page{'text_default'}, $canEdit, $row++);
