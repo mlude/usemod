@@ -1,0 +1,28 @@
+
+Changes for bugfix release 1.0.2:
+
+* added CREDITS and Changelog (forgot them in 1.0.1)
+* make .zip distribution for Windows users again (forgot it for 1.0.1)
+* fixed range in SplitUrlPunct()
+* fixed bug ActionEqIndexAndEmbedEqOne reported by StefanTrcek
+  same problem with other actions and parameter embed
+* moved CSS class wikilinefooter (for <HR>) inside class wikifooter
+
+Changes for bugfix release 1.0.1:
+
+* SECURITY: fix cross-site scripting vulnerability (CVE-2004-1397)
+  fix contributed by Christoph Berg (cb@df7cb.de)
+* fixed bug PossibleToCreatePagesThatCanNotBeEdited
+  fix contributed by RichardP
+* fixed bug FileUploadManglesFile aka Win32BinaryUpload aka
+  UploadOnWindowsNeedsBinmode
+  fix contributed by Robin Rowe (rower@movieeditor.com) and DavidWall
+* fixed bug CompareButtonFailsToDiff aka DoHistory's_Form
+  fix contributed by BrianHunter and ??
+* fixed bug BadHtml
+* fixed bug AmpersandBug
+  fix contributed by UngarPeter
+
+If I've forgotten something or someone, please leave a note on
+UseMod:MarkusLude or send mail to markus.lude@gmx.de.
+
