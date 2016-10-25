@@ -449,13 +449,17 @@ This operation is restricted to site editors only...
 
 This operation is restricted to administrators only...
 
-Set or Remove global edit lock
+Set global edit lock
+
+Remove global edit lock
 
 Edit lock created.
 
 Edit lock removed.
 
-Set or Remove page edit lock
+Set page edit lock
+
+Remove page edit lock
 
 Missing page id to lock/unlock...
 

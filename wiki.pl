@@ -4451,12 +4451,17 @@ sub UserIsAdminOrError {
 }
 
 sub DoEditLock {
-  my ($fname);
+  my ($set, $fname);
 
-  print &GetHeader('', T('Set or Remove global edit lock'), '');
+  $set = &GetParam("set", 1);
+  if ($set) {
+    print &GetHeader('', T('Set global edit lock'), '');
+  } else {
+    print &GetHeader('', T('Remove global edit lock'), '');
+  }
   return  if (!&UserIsAdminOrError());
   $fname = "$DataDir/noedit";
-  if (&GetParam("set", 1)) {
+  if ($set) {
     &WriteStringToFile($fname, "editing locked.");
   } else {
     unlink($fname);
@@ -4470,9 +4475,14 @@ sub DoEditLock {
 }
 
 sub DoPageLock {
-  my ($fname, $id);
+  my ($set, $fname, $id);
 
-  print &GetHeader('', T('Set or Remove page edit lock'), '');
+  $set = &GetParam("set", 1);
+  if ($set) {
+    print &GetHeader('', T('Set page edit lock'), '');
+  } else {
+    print &GetHeader('', T('Remove page edit lock'), '');
+  }
   # Consider allowing page lock/unlock at editor level?
   return  if (!&UserIsAdminOrError());
   $id = &GetParam("id", "");
@@ -4482,7 +4492,7 @@ sub DoPageLock {
   }
   return  if (!&ValidIdOrDie($id));       # Consider nicer error?
   $fname = &GetLockedPageFile($id);
-  if (&GetParam("set", 1)) {
+  if ($set) {
     &WriteStringToFile($fname, "editing locked.");
   } else {
     unlink($fname);
