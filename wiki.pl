@@ -1514,6 +1514,39 @@ sub GetGotoBar {
   return $bartext;
 }
 
+# Admin bar contributed by ElMoro (with some changes)
+sub GetPageLockLink {
+  my ($id, $status, $name) = @_;
+
+  if ($FreeLinks) {
+    $id = &FreeToNormal($id);
+  }
+  return &ScriptLink("action=pagelock&set=$status&id=$id", $name);
+}
+
+sub GetAdminBar {
+  my ($id) = @_;
+  my ($result);
+
+  $result = T('Administration') . ': ';
+  if (-f &GetLockedPageFile($id))   { 
+    $result .= &GetPageLockLink($id, 0, T('Unlock page'));
+  }
+  else  {
+    $result .= &GetPageLockLink($id, 1, T('Lock page'));
+  }
+  $result .= " | " . &GetDeleteLink($id, T('Delete this page'), 0);
+  $result .= " | " . &ScriptLink("action=editbanned", T("Edit Banned List"));
+  $result .= " | " . &ScriptLink("action=maintain", T("Run Maintenance"));
+  $result .= " | " . &ScriptLink("action=editlinks", T("Edit/Rename pages")); 
+  if (-f "$DataDir/noedit") {
+    $result .= " | " . &ScriptLink("action=editlock&set=0", T("Unlock site")); 
+  } else {
+    $result .= " | " . &ScriptLink("action=editlock&set=1", T("Lock site"));
+  }
+  return $result;
+}
+
 sub GetSearchForm {
   my ($result);
 
@@ -4906,39 +4939,6 @@ sub DoShowVersion {
   print &GetHeader('', T('Displaying Wiki Version'), '');
   print "<p>UseModWiki version 1.0.3</p>\n";
   print &GetCommonFooter();
-}
-
-# Admin bar contributed by ElMoro (with some changes)
-sub GetPageLockLink {
-  my ($id, $status, $name) = @_;
-
-  if ($FreeLinks) {
-    $id = &FreeToNormal($id);
-  }
-  return &ScriptLink("action=pagelock&set=$status&id=$id", $name);
-}
-
-sub GetAdminBar {
-  my ($id) = @_;
-  my ($result);
-
-  $result = T('Administration') . ': ';
-  if (-f &GetLockedPageFile($id))   { 
-    $result .= &GetPageLockLink($id, 0, T('Unlock page'));
-  }
-  else  {
-    $result .= &GetPageLockLink($id, 1, T('Lock page'));
-  }
-  $result .= " | " . &GetDeleteLink($id, T('Delete this page'), 0);
-  $result .= " | " . &ScriptLink("action=editbanned", T("Edit Banned List"));
-  $result .= " | " . &ScriptLink("action=maintain", T("Run Maintenance"));
-  $result .= " | " . &ScriptLink("action=editlinks", T("Edit/Rename pages")); 
-  if (-f "$DataDir/noedit") {
-    $result .= " | " . &ScriptLink("action=editlock&set=0", T("Unlock site")); 
-  } else {
-    $result .= " | " . &ScriptLink("action=editlock&set=1", T("Lock site"));
-  }
-  return $result;
 }
 
 # Thanks to Phillip Riley for original code
