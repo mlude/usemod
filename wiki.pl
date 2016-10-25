@@ -3901,6 +3901,9 @@ sub DoPost {
   my $editTime = $Now;
   my $authorAddr = $ENV{REMOTE_ADDR};
 
+  if ($FreeLinks) {
+    $id = &FreeToNormal($id);
+  }
   if (!&UserCanEdit($id, 1)) {
     # This is an internal interface--we don't need to explain
     &ReportError(Ts('Editing not allowed for %s.', $id));
