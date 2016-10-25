@@ -1098,16 +1098,15 @@ sub ScriptLinkChar {
 sub ScriptLink {
   my ($action, $text) = @_;
 
-  $action = &UriEscape($action);
-  return "<a href=\"$ScriptName" . &ScriptLinkChar() . "$action\">$text</a>";
+  return '<a href="' . $ScriptName . &ScriptLinkChar() . &UriEscape($action)
+         . "\">$text</a>";
 }
 
 sub ScriptLinkClass {
   my ($action, $text, $class) = @_;
 
-  $action = &UriEscape($action);
-  return "<a href=\"$ScriptName" . &ScriptLinkChar() . "$action\""
-         . ' class=' . $class . ">$text</a>";
+  return '<a href="' . $ScriptName . &ScriptLinkChar() . &UriEscape($action)
+         . '" class="' . $class . "\">$text</a>";
 }
 
 sub GetPageLinkText {
@@ -1249,12 +1248,11 @@ sub GetUploadLink {
 sub ScriptLinkTitle {
   my ($action, $text, $title) = @_;
 
-  $action = &UriEscape($action);
   if ($FreeLinks) {
     $action =~ s/ /_/g;
   }
-  return "<a href=\"$ScriptName" . &ScriptLinkChar()
-         . "$action\" title=\"$title\">$text</a>";
+  return '<a href="' . $ScriptName . &ScriptLinkChar() . &UriEscape($action)
+         . "\" title=\"$title\">$text</a>";
 }
 
 sub GetAuthorLink {
