@@ -1,5 +1,5 @@
 
-Changes for bugfix release 1.0.2:
+Changes for bugfix release 1.0.2 (August 26, 2007):
 
 * added CREDITS and Changelog (forgot them in 1.0.1)
 * make .zip distribution for Windows users again (forgot it for 1.0.1)
