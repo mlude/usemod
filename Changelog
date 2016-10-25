@@ -6,7 +6,7 @@ Changes for bugfix release 1.0.2:
 * fixed range in SplitUrlPunct()
 * fixed bug ActionEqIndexAndEmbedEqOne
   same problem with other actions and parameter embed
-* moved CSS class wikilinefooter (for <HR>) inside class wikifooter
+* moved CSS class wikilinefooter (for <hr>) inside class wikifooter
 * fixed bug ClassWikifooterMissing
 * fixed bug VariableParseParasYieldsOddOutput
   fix contributed by Trent, simplified
@@ -16,7 +16,7 @@ Changes for bugfix release 1.0.2:
   contributed by Trent with suggestion by UngarPeter
   based on work by TomScanlan
 
-Changes for bugfix release 1.0.1:
+Changes for bugfix release 1.0.1 (July 9, 2007):
 
 * SECURITY: fix cross-site scripting vulnerability (CVE-2004-1397)
   fix contributed by Christoph Berg (cb@df7cb.de)
@@ -32,5 +32,5 @@ Changes for bugfix release 1.0.1:
   fix contributed by UngarPeter
 
 If I've forgotten something or someone, please leave a note on
-UseMod:MarkusLude or send mail to markus.lude@gmx.de.
+UseMod:MarkusLude or send mail to usemod@usemod.com.
 
