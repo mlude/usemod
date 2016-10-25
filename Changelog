@@ -3,6 +3,7 @@ Changes for bugfix release 1.0.4:
 
 * fixed bug NoDisplayFooterInActionLink
   fix contributed by JuanMtnezPineda
+* QuoteHtml: move function to allow defered compilation again
 
 Changes for bugfix release 1.0.3 (September 12, 2007):
 

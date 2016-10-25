@@ -394,6 +394,16 @@ sub Tss {
   return $text;
 }
 
+sub QuoteHtml {
+  my ($html) = @_;
+
+  $html =~ s/&/&amp;/g;
+  $html =~ s/</&lt;/g;
+  $html =~ s/>/&gt;/g;
+  $html =~ s/&amp;([#a-zA-Z0-9]+);/&$1;/g;  # Allow character references
+  return $html;
+}
+
 # == Normal page-browsing and RecentChanges code =======================
 $BrowseCode = ""; # Comment next line to always compile (slower)
 #$BrowseCode = <<'#END_OF_BROWSE_CODE';
@@ -1806,16 +1816,6 @@ sub UriEscape {
   $uri =~ s/([\x00-\x1f\x7f-\xff])/sprintf("%%%02X", ord($1))/ge;
   $uri =~ s/\&/\&amp;/g;
   return $uri;
-}
-
-sub QuoteHtml {
-  my ($html) = @_;
-
-  $html =~ s/&/&amp;/g;
-  $html =~ s/</&lt;/g;
-  $html =~ s/>/&gt;/g;
-  $html =~ s/&amp;([#a-zA-Z0-9]+);/&$1;/g;  # Allow character references
-  return $html;
 }
 
 sub ParseParagraph {
