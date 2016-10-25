@@ -1702,9 +1702,9 @@ sub CommonMarkup {
 sub EmptyCellsToNbsp {
   my ($row) = @_;
 
-  $row =~ s/(?<=\|\|)(\s+)(?=\|\|)/&nbsp;/g;
+  $row =~ s/(?<=\|\|)\s+(?=\|\|)/&nbsp;/g;
   $row =~ s/^\s+(?=\|\|)/&nbsp;/;
-  $row =~ s/(?<=\|\|)(\s+)$/&nbsp;/;
+  $row =~ s/(?<=\|\|)\s+$/&nbsp;/;
   return $row;
 }
 
