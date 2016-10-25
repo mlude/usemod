@@ -2604,7 +2604,7 @@ sub UserDataFilename {
 sub ReportError {
   my ($errmsg) = @_;
 
-  print $q->header, "<H2>", &QuoteHtml($errmsg), "</H2>", $q->end_html;
+  print $q->header, $q->start_html, "<H2>", &QuoteHtml($errmsg), "</H2>", $q->end_html;
 }
 
 sub ValidId {
@@ -3308,8 +3308,8 @@ sub DoEdit {
   print '<div class=wikifooter>';
   print &GetHistoryLink($id, T('View other revisions')) . "<br>\n";
   print &GetGotoBar($id);
-  print $q->endform;
   print '</div>';
+  print $q->endform;
   print &GetMinimumFooter();
 }
 
@@ -3408,11 +3408,11 @@ sub DoEditPrefs {
   print '<br>' . T('StyleSheet URL:') . ' ',
         &GetFormText('stylesheet', "", 30, 150);
   print '<br>', $q->submit(-name=>'Save', -value=>T('Save')), "\n";
+  print $q->endform;
   print '</div>';
   print "<hr class=wikilinefooter>\n";
   print '<div class=wikifooter>';
   print &GetGotoBar('');
-  print $q->endform;
   print '</div>';
   print &GetMinimumFooter();
 }
