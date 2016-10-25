@@ -445,9 +445,31 @@ Lock for %s created.
 
 Lock for %s removed.
 
+Editing Banned list
+
+Updating Banned list
+
+Empty banned list or error.
+
+Resubmit with at least one space character to remove.
+
+Removed banned list
+
+Updated banned list
+
+Editing Links
+
 UpdateLinksList could not get main lock
 
 Updating Links
+
+Empty command list or error.
+
+Finished command list.
+
+Could not open %s log file:
+
+Error was:
 
 Delete-Page: page %1 is invalid, error is: %2
 
@@ -462,6 +484,8 @@ Rename: new page %1 is invalid, error is: %2
 Rename: new page %s already exists--not renamed.
 
 Rename: old page %s does not exist--nothing done.
+
+Displaying Wiki Version
 
 Administration
 

@@ -3210,7 +3210,7 @@ sub DoEdit {
     $id = &FreeToNormal($id);  # Take care of users like Markus Lude :-)
   }
   if (!&UserCanEdit($id, 1)) {
-    print &GetHeader("", T('Editing Denied'), "");
+    print &GetHeader('', T('Editing Denied'), '');
     if (&UserIsBanned()) {
       print T('Editing not allowed: user, ip, or network is blocked.');
       print "<p>";
@@ -3358,7 +3358,7 @@ sub DoEditPrefs {
   $recentName = $RCName;
   $recentName =~ s/_/ /g;
   &DoNewLogin()  if ($UserID < 400);
-  print &GetHeader('', T('Editing Preferences'), "");
+  print &GetHeader('', T('Editing Preferences'), '');
   print '<div class=wikipref>';
   print &GetFormStart();
   print GetHiddenValue("edit_prefs", 1), "\n";
@@ -3467,7 +3467,7 @@ sub DoUpdatePrefs {
   # All link bar settings should be updated before printing the header
   &UpdatePrefCheckbox("toplinkbar");
   &UpdatePrefCheckbox("linkrandom");
-  print &GetHeader('',T('Saving Preferences'), '');
+  print &GetHeader('', T('Saving Preferences'), '');
   print '<br>';
   if ($UserID < 1001) {
     print '<b>',
@@ -4457,7 +4457,7 @@ sub DoPageLock {
 sub DoEditBanned {
   my ($banList, $status);
 
-  print &GetHeader("", "Editing Banned list", "");
+  print &GetHeader('', T('Editing Banned list'), '');
   return  if (!&UserIsAdminOrError());
   ($status, $banList) = &ReadFile("$DataDir/banlist");
   $banList = ""  if (!$status);
@@ -4490,26 +4490,26 @@ sub DoEditBanned {
 sub DoUpdateBanned {
   my ($newList, $fname);
 
-  print &GetHeader("", "Updating Banned list", "");
+  print &GetHeader('', T('Updating Banned list'), '');
   return  if (!&UserIsAdminOrError());
   $fname = "$DataDir/banlist";
   $newList = &GetParam("banlist", "#Empty file");
   if ($newList eq "") {
-    print "<p>Empty banned list or error.";
-    print "<p>Resubmit with at least one space character to remove.";
+    print "<p>", T('Empty banned list or error.');
+    print "<p>", T('Resubmit with at least one space character to remove.');
   } elsif ($newList =~ /^\s*$/s) {
     unlink($fname);
-    print "<p>Removed banned list";
+    print "<p>", T('Removed banned list');
   } else {
     &WriteStringToFile($fname, $newList);
-    print "<p>Updated banned list";
+    print "<p>", T('Updated banned list');
   }
   print &GetCommonFooter();
 }
 
 # ==== Editing/Deleting pages and links ====
 sub DoEditLinks {
-  print &GetHeader("", "Editing Links", "");
+  print &GetHeader('', T('Editing Links'), '');
   if ($AdminDelete) {
     return  if (!&UserIsAdminOrError());
   } else {
@@ -4599,7 +4599,7 @@ sub BuildLinkIndexPage {
 sub DoUpdateLinks {
   my ($commandList, $doRC, $doText);
 
-  print &GetHeader("", T('Updating Links'), "");
+  print &GetHeader('', T('Updating Links'), '');
   if ($AdminDelete) {
     return  if (!&UserIsAdminOrError());
   } else {
@@ -4611,10 +4611,10 @@ sub DoUpdateLinks {
   $doText = &GetParam("p_changetext", "0");
   $doText = 1  if ($doText eq "on");
   if ($commandList eq "") {
-    print "<p>Empty command list or error.";
+    print "<p>", T('Empty command list or error.');
   } else {
     &UpdateLinksList($commandList, $doRC, $doText);
-    print "<p>Finished command list.";
+    print "<p>", T('Finished command list.');
   }
   print &GetCommonFooter();
 }
@@ -4634,8 +4634,10 @@ sub EditRecentChangesFile {
   ($status, $fileData) = &ReadFile($fname);
   if (!$status) {
     # Save error text if needed.
-    $errorText = "<p><strong>Could not open $RCName log file:"
-                 . "</strong> $fname<p>Error was:\n<pre>$!</pre>\n";
+    $errorText = "<p><strong>"
+                 . Ts('Could not open %s log file:', $RCName)
+                 . "</strong> $fname"
+                 . "<p>" . T('Error was:') . "\n<pre>$!</pre>\n";
     print $errorText  if ($printError);
     return;
   }
@@ -4880,7 +4882,8 @@ sub RenamePage {
   }
   $oldfname = &GetPageFile($old);
   if (!(-f $oldfname)) {
-    print Ts('Rename: old page %s does not exist--nothing done.', $old) . "<br>\n";
+    print Ts('Rename: old page %s does not exist--nothing done.', $old)
+          . "<br>\n";
     return;
   }
   &CreatePageDir($PageDir, $new);  # It might not exist yet
@@ -4899,7 +4902,7 @@ sub RenamePage {
 }
 
 sub DoShowVersion {
-  print &GetHeader("", "Displaying Wiki Version", "");
+  print &GetHeader('', T('Displaying Wiki Version'), '');
   print "<p>UseModWiki version 1.0.2</p>\n";
   print &GetCommonFooter();
 }
