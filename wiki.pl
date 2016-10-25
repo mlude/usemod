@@ -1306,7 +1306,7 @@ sub GetHeader {
   if ($FreeLinks) {
     $title =~ s/_/ /g;   # Display as spaces
   }
-  $result .= &GetHtmlHeader("$SiteName: $title");
+  $result .= &GetHtmlHeader("$SiteName: $title", $id);
   return $result  if ($embed);
 
   $result .= '<div class=wikiheader>';
@@ -1357,7 +1357,7 @@ sub GetHttpHeader {
 }
 
 sub GetHtmlHeader {
-  my ($title) = @_;
+  my ($title, $id) = @_;
   my ($dtd, $html, $bodyExtra, $stylesheet);
 
   $html = '';
@@ -1381,9 +1381,11 @@ sub GetHtmlHeader {
   if ($SiteBase ne "") {
     $html .= qq(<BASE HREF="$SiteBase">\n);
   }
-  $html .= qq(<link rel="alternate" title="$SiteName RSS" href=")
-        . $ScriptName . &ScriptLinkChar() . &UriEscape("action=rss&days=$RssDays")
-        . qq(" type="application/rss+xml">\n);
+  if (($id eq $RCName) || (T($RCName) eq $id) || (T($id) eq $RCName)) {
+    $html .= qq(<link rel="alternate" title="$SiteName RSS" href=")
+          . $ScriptName . &ScriptLinkChar() . &UriEscape("action=rss&days=$RssDays")
+          . qq(" type="application/rss+xml">\n);
+  }
   $stylesheet = &GetParam('stylesheet', $StyleSheet);
   $stylesheet = $StyleSheet  if ($stylesheet eq '');
   $stylesheet = ''  if ($stylesheet eq '*');  # Allow removing override
