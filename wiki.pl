@@ -2089,7 +2089,7 @@ sub SplitUrlPunct {
   $punct = "";
   if ($NewFS) {
     ($punct) = ($url =~ /([^a-zA-Z0-9\/\x80-\xff]+)$/);
-    $url =~ s/([^a-zA-Z0-9\/\xc0-\xff]+)$//;
+    $url =~ s/([^a-zA-Z0-9\/\x80-\xff]+)$//;
   } else {
     ($punct) = ($url =~ /([^a-zA-Z0-9\/\xc0-\xff]+)$/);
     $url =~ s/([^a-zA-Z0-9\/\xc0-\xff]+)$//;
