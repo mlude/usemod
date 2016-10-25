@@ -7,6 +7,8 @@ Changes for bugfix release 1.0.3:
   fix contributed by BrianHunter
 * fix bug EmptyTableElements
   fix contributed by StefanTrcek
+* fix bug MiscTranslation
+  fix contributed by JuanMtnezPineda
 
 Changes for bugfix release 1.0.2 (August 26, 2007):
 

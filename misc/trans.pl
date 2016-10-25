@@ -449,6 +449,20 @@ UpdateLinksList could not get main lock
 
 Updating Links
 
+Delete-Page: page %1 is invalid, error is: %2
+
+Rename-Text: old page %1 is invalid, error is: %2
+
+Rename-Text: new page %1 is invalid, error is: %2
+
+Rename: old page %1 is invalid, error is: %2
+
+Rename: new page %1 is invalid, error is: %2
+
+Rename: new page %s already exists--not renamed.
+
+Rename: old page %s does not exist--nothing done.
+
 Administration
 
 Unlock page

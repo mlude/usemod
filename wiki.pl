@@ -4669,7 +4669,8 @@ sub DeletePage {
   $page =~ s/\]+//;
   $status = &ValidId($page);
   if ($status ne "") {
-    print "Delete-Page: page $page is invalid, error is: $status<br>\n";
+    print Tss('Delete-Page: page %1 is invalid, error is: %2', $page, $status)
+          . "<br>\n";
     return;
   }
   $fname = &GetPageFile($page);
@@ -4805,12 +4806,14 @@ sub RenameTextLinks {
   $new =~ s/ /_/g;
   $status = &ValidId($old);
   if ($status ne "") {
-    print "Rename-Text: old page $old is invalid, error is: $status<br>\n";
+    print Tss('Rename-Text: old page %1 is invalid, error is: %2', $old, $status)
+          . "<br>\n";
     return;
   }
   $status = &ValidId($new);
   if ($status ne "") {
-    print "Rename-Text: new page $new is invalid, error is: $status<br>\n";
+    print Tss('Rename-Text: new page %1 is invalid, error is: %2', $new, $status)
+          . "<br>\n";
     return;
   }
   $old =~ s/_/ /g;
@@ -4859,22 +4862,25 @@ sub RenamePage {
   $new = &FreeToNormal($new);
   $status = &ValidId($old);
   if ($status ne "") {
-    print "Rename: old page $old is invalid, error is: $status<br>\n";
+    print Tss('Rename: old page %1 is invalid, error is: %2', $old, $status)
+          . "<br>\n";
     return;
   }
   $status = &ValidId($new);
   if ($status ne "") {
-    print "Rename: new page $new is invalid, error is: $status<br>\n";
+    print Tss('Rename: new page %1 is invalid, error is: %2', $new, $status)
+          . "<br>\n";
     return;
   }
   $newfname = &GetPageFile($new);
   if (-f $newfname) {
-    print "Rename: new page $new already exists--not renamed.<br>\n";
+    print Ts('Rename: new page %s already exists--not renamed.', $new)
+          . "<br>\n";
     return;
   }
   $oldfname = &GetPageFile($old);
   if (!(-f $oldfname)) {
-    print "Rename: old page $old does not exist--nothing done.<br>\n";
+    print Ts('Rename: old page %s does not exist--nothing done.', $old) . "<br>\n";
     return;
   }
   &CreatePageDir($PageDir, $new);  # It might not exist yet
