@@ -1361,6 +1361,11 @@ sub GetHtmlHeader {
       $keywords =~ s/([a-z])([A-Z])/$1, $2/g;
       $html .= "<META NAME='KEYWORDS' CONTENT='$keywords'/>\n" if $keywords;
   }
+  # we don't want robots indexing our history or other admin pages
+  my $action = lc(&GetParam('action', ''));
+  unless (!$action or $action eq "rc" or $action eq "index") {
+    $html .= "<META NAME='robots' CONTENT='noindex,nofollow'>\n";
+  }
   if ($SiteBase ne "") {
     $html .= qq(<BASE HREF="$SiteBase">\n);
   }

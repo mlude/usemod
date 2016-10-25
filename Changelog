@@ -12,6 +12,9 @@ Changes for bugfix release 1.0.2:
   fix contributed by Trent, simplified
 * fixed bug UploadTranslation
   fix contributed by UngarPeter
+* added patch RobotsNoFollow version D
+  contributed by Trent with suggestion by UngarPeter
+  based on work by TomScanlan
 
 Changes for bugfix release 1.0.1:
 
