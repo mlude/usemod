@@ -149,7 +149,7 @@ $UseAmPm      = 1;      # 1 = use am/pm in times, 0 = use 24-hour times
 $UseIndex     = 0;      # 1 = use index file,     0 = slow/reliable method
 $UseHeadings  = 1;      # 1 = allow = h1 text =,  0 = no header formatting
 $NetworkFile  = 1;      # 1 = allow remote file:, 0 = no file:// links
-$BracketWiki  = 0;	# 1 = [WikiLnk txt] link, 0 = no local descriptions
+$BracketWiki  = 0;      # 1 = [WikiLnk txt] link, 0 = no local descriptions
 $UseLookup    = 1;      # 1 = lookup host names,  0 = skip lookup (IP only)
 $FreeUpper    = 1;      # 1 = force upper case,   0 = do not force case
 $FastGlob     = 1;      # 1 = new faster code,    0 = old compatible code
@@ -376,7 +376,7 @@ sub T {
 sub Ts {
   my ($text, $string, $noquote) = @_;
 
-  $string = &QuoteHtml($string) unless ($noquote);
+  $string = &QuoteHtml($string) unless $noquote;
   $text = T($text);
   $text =~ s/\%s/$string/;
   return $text;
