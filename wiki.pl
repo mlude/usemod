@@ -999,7 +999,7 @@ sub DoHistory {
   my ($id) = @_;
   my ($html, $canEdit, $row, $newText);
 
-  print &GetHeader('', Ts('History of %s', $id), '') . '<br>';
+  print &GetHeader('', Ts('History of %s', $id), '');
   &OpenPage($id);
   &OpenDefaultText();
   $newText = $Text{'text'};
@@ -3508,7 +3508,6 @@ sub DoUpdatePrefs {
   &UpdatePrefCheckbox("toplinkbar");
   &UpdatePrefCheckbox("linkrandom");
   print &GetHeader('', T('Saving Preferences'), '');
-  print '<br>';
   if ($UserID < 1001) {
     print '<b>',
           Ts('Invalid UserID %s, preferences not saved.', $UserID), '</b>';
@@ -3667,7 +3666,6 @@ sub UpdatePrefNumber {
 
 sub DoIndex {
   print &GetHeader('', T('Index of all pages'), '');
-  print '<br>';
   &PrintPageList(&AllPagesList());
   print &GetCommonFooter();
 }
@@ -3798,7 +3796,6 @@ sub DoSearch {
     return;
   }
   print &GetHeader('', &QuoteHtml(Ts('Search for: %s', $string)), '');
-  print '<br>';
   &PrintPageList(&SearchTitleAndBody($string));
   print &GetCommonFooter();
 }
@@ -3807,7 +3804,6 @@ sub DoBackLinks {
   my ($string) = @_;
 
   print &GetHeader('', &QuoteHtml(Ts('Backlinks for: %s', $string)), '');
-  print '<br>';
   # At this time the backlinks are mostly a renamed search.
   # An initial attempt to match links only failed on subpages and free links.
   # Escape some possibly problematic characters:
@@ -3828,7 +3824,7 @@ sub PrintPageList {
 
 sub DoLinks {
   print &GetHeader('', &QuoteHtml(T('Full Link List')), '');
-  print "<hr><pre>\n\n\n\n\n";  # Extra lines to get below the logo
+  print "<hr><pre>";
   &PrintLinkList(&GetFullLinkList());
   print "</pre>\n";
   print &GetCommonFooter();
@@ -4335,7 +4331,6 @@ sub ProcessVetos {
 sub DoMaintain {
   my ($name, $fname, $data, $message, $status);
   print &GetHeader('', T('Maintenance on all pages'), '');
-  print "<br>";
   $fname = "$DataDir/maintain";
   if (!&UserIsAdmin()) {
     if ((-f $fname) && ((-M $fname) < 0.5)) {
@@ -4424,9 +4419,9 @@ sub DoMaintainRc {
   return  if (!&UserIsAdminOrError());
   &RequestLock() or die(T('Could not get lock for RC maintenance'));
   if (&TrimRc()) {
-    print '<br>' . T('RC maintenance done.') . '<br>';
+    print T('RC maintenance done.') . '<br>';
   } else {
-    print '<br>' . T('RC maintenance not done.') . '<br>';
+    print T('RC maintenance not done.') . '<br>';
   }
   &ReleaseLock();
   print &GetCommonFooter();
