@@ -376,11 +376,7 @@ sub T {
 sub Ts {
   my ($text, $string, $noquote) = @_;
 
-  unless ($noquote) {
-    $string =~ s/&/&amp;/g;
-    $string =~ s/</&lt;/g;
-    $string =~ s/>/&gt;/g;
-  }
+  $string = &QuoteHtml($string) unless ($noquote);
   $text = T($text);
   $text =~ s/\%s/$string/;
   return $text;
@@ -391,11 +387,7 @@ sub Tss {
   my @args = @_;
 
   @args = map {
-    my $a = $_;
-    $a =~ s/&/&amp;/g;
-    $a =~ s/</&lt;/g;
-    $a =~ s/>/&gt;/g;
-    $a;
+    $_ = &QuoteHtml($_);
   } @args;
   $text = T($text);
   $text =~ s/\%([1-9])/$args[$1]/ge;
