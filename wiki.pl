@@ -3824,7 +3824,7 @@ sub PrintPageList {
 
 sub DoLinks {
   print &GetHeader('', &QuoteHtml(T('Full Link List')), '');
-  print "<pre>";
+  print "<pre>\n\n\n\n\n";  # Extra lines to get below the logo
   &PrintLinkList(&GetFullLinkList());
   print "</pre>\n";
   print &GetCommonFooter();
