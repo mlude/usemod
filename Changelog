@@ -21,10 +21,10 @@ Changes for bugfix release 1.0.2 (August 26, 2007):
   contributed by Trent with suggestion by UngarPeter
   based on work by TomScanlan
 * fixed bug ActionLinksExistsZeroSubPage
-        aka RequestedLinks
+    aka bug RequestedLinks
   based on fix by GyPark and MikeCastle
 * fixed bug ImageExtensionsCaseSensitive
-        aka UppercaseImageUploadCausesProblemsWithDisplay
+    aka bug UppercaseImageUploadCausesProblemsWithDisplay
 * added ico/tif/tiff to ImageExtensions
 * fixed bug CamelCaseImageUploadCausesProblemsWithDisplay
   with suggestion from DavidClaughton
@@ -36,11 +36,11 @@ Changes for bugfix release 1.0.1 (July 9, 2007):
 * fixed bug PossibleToCreatePagesThatCanNotBeEdited
   fix contributed by RichardP
 * fixed bug FileUploadManglesFile
-        aka Win32BinaryUpload
-        aka UploadOnWindowsNeedsBinmode
+    aka bug Win32BinaryUpload
+    aka bug UploadOnWindowsNeedsBinmode
   fix contributed by Robin Rowe (rower@movieeditor.com) and DavidWall
 * fixed bug CompareButtonFailsToDiff
-        aka DoHistory's_Form
+    aka bug DoHistory's_Form
   fix contributed by BrianHunter and ??
 * fixed bug BadHtml
 * fixed bug AmpersandBug
