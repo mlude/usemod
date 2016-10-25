@@ -4938,6 +4938,7 @@ sub SaveUpload {
   $filename =~ s/.*[\/\\](.*)/$1/;  # Only name after last \ or /
   $uploadFilehandle = $q->upload('file');
   open UPLOADFILE, ">$UploadDir$filename";
+  binmode UPLOADFILE;
   while (<$uploadFilehandle>) { print UPLOADFILE; }
   close UPLOADFILE;
   print T('The wiki link to your file is:') . "\n<br><BR>";
