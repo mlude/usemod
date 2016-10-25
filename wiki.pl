@@ -374,8 +374,13 @@ sub T {
 }
 
 sub Ts {
-  my ($text, $string) = @_;
+  my ($text, $string, $noquote) = @_;
 
+  unless ($noquote) {
+    $string =~ s/&/&amp;/g;
+    $string =~ s/</&lt;/g;
+    $string =~ s/>/&gt;/g;
+  }
   $text = T($text);
   $text =~ s/\%s/$string/;
   return $text;
@@ -383,9 +388,17 @@ sub Ts {
 
 sub Tss {
   my $text = @_[0];
+  my @args = @_;
 
+  @args = map {
+    my $a = $_;
+    $a =~ s/&/&amp;/g;
+    $a =~ s/</&lt;/g;
+    $a =~ s/>/&gt;/g;
+    $a;
+  } @args;
   $text = T($text);
-  $text =~ s/\%([1-9])/$_[$1]/ge;
+  $text =~ s/\%([1-9])/$args[$1]/ge;
   return $text;
 }
 
@@ -1297,7 +1310,7 @@ sub GetHeader {
   $result .= '<div class=wikiheader>';
   if ($oldId ne '') {
     $result .= $q->h3('(' . Ts('redirected from %s', 
-                               &GetEditLink($oldId, $oldId)) . ')');
+                               &GetEditLink($oldId, $oldId), 1) . ')');
   }
   if ((!$embed) && ($LogoUrl ne "")) {
     $logoImage = "img src=\"$LogoUrl\" alt=\"$altText\" border=0";
@@ -1419,7 +1432,7 @@ sub GetFooterText {
     $result .= ' ' . &TimeToText($Section{ts});
     if ($AuthorFooter) {
       $result .= ' ' . Ts('by %s', &GetAuthorLink($Section{'host'},
-                                     $Section{'username'}, $Section{'id'}));
+                                     $Section{'username'}, $Section{'id'}), 1);
     }
   }
   if ($UseDiff) {
@@ -3276,7 +3289,7 @@ sub DoEdit {
     print ' (', T('Your user name is'), ' ',
           &GetPageLink($userName) . ') ';
   } else {
-    print ' (', Ts('Visit %s to set your user name.', &GetPrefsLink()), ') ';
+    print ' (', Ts('Visit %s to set your user name.', &GetPrefsLink(), 1), ') ';
   }
   print $q->submit(-name=>'Preview', -value=>T('Preview')), "\n";
   if ($isConflict) {
