@@ -1661,6 +1661,9 @@ sub CommonMarkup {
     s/\[$InterLinkPattern\]/&StoreBracketInterPage($1, "", 0)/geo;
     s/\b$UrlPattern/&StoreUrl($1, $useImage)/geo;
     s/\b$InterLinkPattern/&StoreInterPage($1, $useImage)/geo;
+    if ($UseUpload) {
+      s/$UploadPattern/&StoreUpload($1)/geo;
+    }
     if ($WikiLinks) {
       s/$AnchoredLinkPattern/&StoreRaw(&GetPageOrEditAnchoredLink($1,
                              $2, ""))/geo if $NamedAnchors;
@@ -1670,9 +1673,6 @@ sub CommonMarkup {
     }
     s/\b$RFCPattern/&StoreRFC($1)/geo;
     s/\b$ISBNPattern/&StoreISBN($1)/geo;
-    if ($UseUpload) {
-      s/$UploadPattern/&StoreUpload($1)/geo;
-    }
     if ($ThinLine) {
       if ($OldThinLine) {  # Backwards compatible, conflicts with headers
         s/====+/<hr noshade class=wikiline size=2>/g;
