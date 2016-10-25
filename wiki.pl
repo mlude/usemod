@@ -3823,7 +3823,7 @@ sub PrintLinkList {
 sub GetFullLinkList {
   my ($name, $unique, $sort, $exists, $empty, $link, $search);
   my ($pagelink, $interlink, $urllink);
-  my (@found, @links, @newlinks, @pglist, %pgExists, %seen);
+  my (@found, @links, @newlinks, @pglist, %pgExists, %seen, $main);
 
   $unique = &GetParam("unique", 1);
   $sort = &GetParam("sort", 1);
@@ -3848,9 +3848,13 @@ sub GetFullLinkList {
       %seen = ();
     }
     @links = &GetPageLinks($name, $pagelink, $interlink, $urllink);
+    if ($UseSubpage) {
+      $main = $name;
+      $main =~ s/\/.*//;
+    }
     foreach $link (@links) {
-      if ($link =~ /^\//) {
-        $link = (split('/', $name))[0].$link;
+      if ($UseSubpage && ($link =~ /^\//)) {
+        $link = $main . $link;
       }
       $seen{$link}++;
       if (($unique > 0) && ($seen{$link} != 1)) {
