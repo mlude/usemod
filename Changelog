@@ -12,6 +12,8 @@ Changes for bugfix release 1.0.3:
   added more translation strings
 * DoRC: when using rcidonly text was quoted too much
   noticed by CliffordAdams (bug was introduced with XssFix in 1.0.1)
+* fix bug UrlEncoding
+  fix contributed by StefanTrcek
 
 Changes for bugfix release 1.0.2 (August 26, 2007):
 

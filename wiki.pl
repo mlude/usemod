@@ -921,12 +921,13 @@ RSS
 sub GetRssRcLine{
   my ($pagename, $timestamp, $host, $userName, $userID, $summary,
       $isEdit, $pagecount, $revision, $diffPrefix, $historyPrefix) = @_;
-  my ($itemID, $description, $authorLink, $author, $status,
+  my ($pagenameEsc, $itemID, $description, $authorLink, $author, $status,
       $importance, $date, $item, $headItem);
 
+  $pagenameEsc = CGI::escape($pagename);
   # Add to list of items in the <channel/>
   $itemID = $FullUrl . &ScriptLinkChar()
-            . &GetOldPageParameters('browse', $pagename, $revision);
+            . &GetOldPageParameters('browse', $pagenameEsc, $revision);
   $itemID = &QuoteHtml($itemID);
   $headItem = "                <rdf:li rdf:resource=\"$itemID\"/>\n";
   # Add to list of items proper.
@@ -952,7 +953,7 @@ sub GetRssRcLine{
   $item = <<RSS ;
     <item rdf:about="$itemID">
         <title>$pagename</title>
-        <link>$QuotedFullUrl?$pagename</link>
+        <link>$QuotedFullUrl?$pagenameEsc</link>
         <description>$description</description>
         <dc:date>$date</dc:date>
         <dc:contributor>
@@ -962,9 +963,9 @@ sub GetRssRcLine{
         </dc:contributor>
         <wiki:status>$status</wiki:status>
         <wiki:importance>$importance</wiki:importance>
-        <wiki:diff>$diffPrefix$pagename</wiki:diff>
+        <wiki:diff>$diffPrefix$pagenameEsc</wiki:diff>
         <wiki:version>$revision</wiki:version>
-        <wiki:history>$historyPrefix$pagename</wiki:history>
+        <wiki:history>$historyPrefix$pagenameEsc</wiki:history>
     </item>
 RSS
   return ($headItem, $item);
