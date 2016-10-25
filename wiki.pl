@@ -893,7 +893,7 @@ sub GetRcRss {
   my $ChannelAbout = &QuoteHtml($FullUrl . &ScriptLinkChar()
                                 . $ENV{QUERY_STRING});
   $rssHeader = <<RSS ;
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="@{[$HttpCharset or 'ISO-8859-1']}"?>
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns="http://purl.org/rss/1.0/"
@@ -902,7 +902,7 @@ sub GetRcRss {
 >
     <channel rdf:about="$ChannelAbout">
         <title>${\(&QuoteHtml($SiteName))}</title>
-        <link>${\($QuotedFullUrl . &ScriptLinkChar() . &QuoteHtml("$RCName"))}</link>
+        <link>${\($QuotedFullUrl . &ScriptLinkChar() . &QuoteHtml(&UriEscape($RCName)))}</link>
         <description>${\(&QuoteHtml($SiteDescription))}</description>
         <wiki:interwiki>
             <rdf:Description link="$QuotedFullUrl">
@@ -935,7 +935,7 @@ sub GetRssRcLine{
   my ($pagenameEsc, $itemID, $description, $authorLink, $author, $status,
       $importance, $date, $item, $headItem);
 
-  $pagenameEsc = CGI::escape($pagename);
+  $pagenameEsc = &UriEscape($pagename);
   # Add to list of items in the <channel/>
   $itemID = $FullUrl . &ScriptLinkChar()
             . &GetOldPageParameters('browse', $pagenameEsc, $revision);
@@ -948,7 +948,7 @@ sub GetRssRcLine{
   $host = &QuoteHtml($host);
   if ($userName) {
     $author = &QuoteHtml($userName);
-    $authorLink = 'link="' . $QuotedFullUrl . &ScriptLinkChar() . $author . '"';
+    $authorLink = 'link="' . $QuotedFullUrl . &ScriptLinkChar() . &UriEscape($author) . '"';
   } else {
     $author = $host;
   }
@@ -960,6 +960,7 @@ sub GetRssRcLine{
   $date = sprintf("%4d-%02d-%02dT%02d:%02d:%02d+%02d:00",
     $year, $mon+1, $mday, $hour, $min, $sec, $TimeZoneOffset/(60*60));
   $pagename = &QuoteHtml($pagename);
+  $pagename =~ tr/_/ /;
   # Write it out longhand
   $item = <<RSS ;
     <item rdf:about="$itemID">
@@ -983,7 +984,7 @@ RSS
 }
 
 sub DoRss {
-  print "Content-type: text/xml\n\n";
+  print "Content-type: text/xml", $HttpCharset ? "; charset=$HttpCharset" : "", "\n\n";
   &DoRc(0);
 }
 
