@@ -1972,6 +1972,9 @@ sub StoreBracketUrl {
 
   if ($text eq "") {
     $text = &GetBracketUrlIndex($url);
+  } elsif ($text =~ /^$InterLinkPattern$/) {
+    my @interlink = split(/:/, $text, 2);
+    $text = &GetSiteUrl($interlink[0]) . $interlink[1];
   }
   if ($BracketImg && $useImage && &ImageAllowed($text)) {
     $text = "<img src=\"$text\">";
