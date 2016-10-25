@@ -1585,7 +1585,7 @@ sub WikiToHTML {
         s/\&lt;pre\&gt;((.|\n)*?)\&lt;\/pre\&gt;/&StorePre($1, "pre")/ige;
     $pageText =~
         s/\&lt;code\&gt;((.|\n)*?)\&lt;\/code\&gt;/&StorePre($1, "code")/ige;
-    $pageText =~ s/((.|\n)+?\n)\s*\n/&ParseParagraph($1)/geo;
+    $pageText =~ s/((.|\n)+?\n)\s*(\n|$)/&ParseParagraph($1)/geo;
     $pageText =~ s/(.*)<\/p>(.+)$/$1.&ParseParagraph($2)/seo;
   } else {
     $pageText = &CommonMarkup($pageText, 1, 0);   # Multi-line markup
