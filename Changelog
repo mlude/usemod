@@ -15,6 +15,8 @@ Changes for bugfix release 1.0.2:
 * added patch RobotsNoFollow version D
   contributed by Trent with suggestion by UngarPeter
   based on work by TomScanlan
+* fixed bug ActionLinksExistsZeroSubPage aka RequestedLinks
+  fix contributed by GyPark and MikeCastle
 
 Changes for bugfix release 1.0.1 (July 9, 2007):
 

@@ -3849,6 +3849,9 @@ sub GetFullLinkList {
     }
     @links = &GetPageLinks($name, $pagelink, $interlink, $urllink);
     foreach $link (@links) {
+      if ($link =~ /^\//) {
+        $link = (split('/', $name))[0].$link;
+      }
       $seen{$link}++;
       if (($unique > 0) && ($seen{$link} != 1)) {
         next;
