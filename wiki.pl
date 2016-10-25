@@ -1382,7 +1382,7 @@ sub GetHtmlHeader {
     $html .= qq(<BASE HREF="$SiteBase">\n);
   }
   $html .= qq(<link rel="alternate" title="$SiteName RSS" href=")
-        . $ScriptName . &ScriptLinkChar() . &UriEscape("action=rss&days=5")
+        . $ScriptName . &ScriptLinkChar() . &UriEscape("action=rss&days=$RssDays")
         . qq(" type="application/rss+xml">\n);
   $stylesheet = &GetParam('stylesheet', $StyleSheet);
   $stylesheet = $StyleSheet  if ($stylesheet eq '');
