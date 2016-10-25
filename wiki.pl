@@ -749,7 +749,7 @@ sub GetRc {
   my ($showedit, $link, $all, $idOnly, $headItem, $item);
   my ($ts, $pagename, $summary, $isEdit, $host, $kind, $extraTemp);
   my ($rcchangehist, $tEdit, $tChanges, $tDiff);
-  my ($headList, $historyPrefix, $diffPrefix);
+  my ($headList, $pagePrefix, $historyPrefix, $diffPrefix);
   my %extra = ();
   my %changetime = ();
   my %pagecount = ();
@@ -775,8 +775,9 @@ sub GetRc {
   $tEdit    = T('(edit)');
   $tDiff    = T('(diff)');
   $tChanges = T('changes');
-  $diffPrefix = $QuotedFullUrl . &QuoteHtml("?action=browse\&diff=4\&id=");
-  $historyPrefix = $QuotedFullUrl . &QuoteHtml("?action=history\&id=");
+  $pagePrefix = $QuotedFullUrl . &ScriptLinkChar();
+  $diffPrefix = $pagePrefix . &QuoteHtml("action=browse&diff=4&id=");
+  $historyPrefix = $pagePrefix . &QuoteHtml("action=history&id=");
   foreach $rcline (@outrc) {
     ($ts, $pagename) = split(/$FS3/, $rcline);
     $pagecount{$pagename}++;
@@ -817,7 +818,7 @@ sub GetRc {
       ($headItem, $item) = &GetRssRcLine($pagename, $ts, $host,
                               $extra{'name'}, $extra{'id'}, $summary, $isEdit,
                               $pagecount{$pagename}, $extra{'revision'},
-                              $diffPrefix, $historyPrefix);
+                              $diffPrefix, $historyPrefix, $pagePrefix);
       $headList .= $headItem;
       $result   .= $item;
     } else {  # HTML
@@ -901,7 +902,7 @@ sub GetRcRss {
 >
     <channel rdf:about="$ChannelAbout">
         <title>${\(&QuoteHtml($SiteName))}</title>
-        <link>${\($QuotedFullUrl . &QuoteHtml("?$RCName"))}</link>
+        <link>${\($QuotedFullUrl . &ScriptLinkChar() . &QuoteHtml("$RCName"))}</link>
         <description>${\(&QuoteHtml($SiteDescription))}</description>
         <wiki:interwiki>
             <rdf:Description link="$QuotedFullUrl">
@@ -929,8 +930,8 @@ RSS
 }
 
 sub GetRssRcLine{
-  my ($pagename, $timestamp, $host, $userName, $userID, $summary,
-      $isEdit, $pagecount, $revision, $diffPrefix, $historyPrefix) = @_;
+  my ($pagename, $timestamp, $host, $userName, $userID, $summary, $isEdit,
+      $pagecount, $revision, $diffPrefix, $historyPrefix, $pagePrefix) = @_;
   my ($pagenameEsc, $itemID, $description, $authorLink, $author, $status,
       $importance, $date, $item, $headItem);
 
@@ -947,7 +948,7 @@ sub GetRssRcLine{
   $host = &QuoteHtml($host);
   if ($userName) {
     $author = &QuoteHtml($userName);
-    $authorLink = "link=\"$QuotedFullUrl?$author\"";
+    $authorLink = 'link="' . $QuotedFullUrl . &ScriptLinkChar() . $author . '"';
   } else {
     $author = $host;
   }
@@ -963,7 +964,7 @@ sub GetRssRcLine{
   $item = <<RSS ;
     <item rdf:about="$itemID">
         <title>$pagename</title>
-        <link>$QuotedFullUrl?$pagenameEsc</link>
+        <link>$pagePrefix$pagenameEsc</link>
         <description>$description</description>
         <dc:date>$date</dc:date>
         <dc:contributor>
@@ -4155,6 +4156,7 @@ sub EmailNotify {
     close(EMAIL);
     my $home_url = $q->url();
     my $page_url = $home_url . &ScriptLinkChar() . &UriEscape($id);
+    my $pref_url = $home_url . &ScriptLinkChar() . "action=editprefs";
     my $editors_summary = $q->param("summary");
     if (($editors_summary eq "*") or ($editors_summary eq "")){
       $editors_summary = "";
@@ -4173,7 +4175,7 @@ sub EmailNotify {
   so only do that if you mean to.
 
   To remove yourself from this list, visit
-  ${home_url}?action=editprefs .)
+  $pref_url .)
 END_MAIL_CONTENT
     my $subject = "The $id page at $SiteName has been changed.";
     # I'm setting the "reply-to" field to be the same as the "to:" field
