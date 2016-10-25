@@ -5,6 +5,7 @@ Changes for bugfix release 1.0.5:
   contributed by UngarPeter
 * added patch DoPageLockMinorTweak
   contributed by JuanMtnezPineda
+* Allow "0" as page name if FreeLinks are allowed
 
 Changes for bugfix release 1.0.4 (December 1, 2007):
 

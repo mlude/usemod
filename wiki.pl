@@ -473,7 +473,7 @@ sub DoBrowseRequest {
     return 1;
   }
   $id = &GetParam('keywords', '');
-  if ($id) {                    # Just script?PageName
+  if ($id ne '') {                    # Just script?PageName
     if ($FreeLinks && (!-f &GetPageFile($id))) {
       $id = &FreeToNormal($id);
     }
@@ -1321,7 +1321,7 @@ sub GetHeader {
     }
     $header = &ScriptLink($HomePage, "<$logoImage>");
   }
-  if ($id and $backlinks) {
+  if (($id ne '') and $backlinks) {
     $result .= $q->h1($header . &GetBackLinksSearchLink($id));
   } else {
     $result .= $q->h1($header . $title);
