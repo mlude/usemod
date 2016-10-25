@@ -15,10 +15,11 @@ Changes for bugfix release 1.0.2 (August 26, 2007):
 * added patch RobotsNoFollow version D
   contributed by Trent with suggestion by UngarPeter
   based on work by TomScanlan
-* fixed bug ActionLinksExistsZeroSubPage aka RequestedLinks
+* fixed bug ActionLinksExistsZeroSubPage
+        aka RequestedLinks
   based on fix by GyPark and MikeCastle
-* fixed bug ImageExtensionsCaseSensitive aka
-  UppercaseImageUploadCausesProblemsWithDisplay
+* fixed bug ImageExtensionsCaseSensitive
+        aka UppercaseImageUploadCausesProblemsWithDisplay
 * added ico/tif/tiff to ImageExtensions
 * fixed bug CamelCaseImageUploadCausesProblemsWithDisplay
   with suggestion from DavidClaughton
@@ -29,10 +30,12 @@ Changes for bugfix release 1.0.1 (July 9, 2007):
   fix contributed by Christoph Berg (cb@df7cb.de)
 * fixed bug PossibleToCreatePagesThatCanNotBeEdited
   fix contributed by RichardP
-* fixed bug FileUploadManglesFile aka Win32BinaryUpload aka
-  UploadOnWindowsNeedsBinmode
+* fixed bug FileUploadManglesFile
+        aka Win32BinaryUpload
+        aka UploadOnWindowsNeedsBinmode
   fix contributed by Robin Rowe (rower@movieeditor.com) and DavidWall
-* fixed bug CompareButtonFailsToDiff aka DoHistory's_Form
+* fixed bug CompareButtonFailsToDiff
+        aka DoHistory's_Form
   fix contributed by BrianHunter and ??
 * fixed bug BadHtml
 * fixed bug AmpersandBug
