@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# UseModWiki version 1.0.4 (December 1, 2007)
+# UseModWiki version 1.0.5 (August 28, 2009)
 # Copyright (C) 2000-2003 Clifford A. Adams  <caadams@usemod.com>
 # Copyright (C) 2002-2003 Sunir Shah  <sunir@sunir.org>
 # Based on the GPLed AtisWiki 0.3  (C) 1998 Markus Denker
@@ -4950,7 +4950,7 @@ sub RenamePage {
 
 sub DoShowVersion {
   print &GetHeader('', T('Displaying Wiki Version'), '');
-  print "<p>UseModWiki version 1.0.4</p>\n";
+  print "<p>UseModWiki version 1.0.5</p>\n";
   print &GetCommonFooter();
 }
 
