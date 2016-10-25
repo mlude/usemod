@@ -555,7 +555,7 @@ sub BrowsePage {
   }
   $MainPage = $id;
   $MainPage =~ s|/.*||;  # Only the main page name (remove subpage)
-  $fullHtml = &GetHeader($id, &QuoteHtml($id), $oldId);
+  $fullHtml = &GetHeader($id, &QuoteHtml($id), $oldId, 1);
   if ($revision ne '') {
     if (($revision eq $Page{'revision'}) || ($goodRevision ne '')) {
       $fullHtml .= '<b>' . Ts('Showing revision %s', $revision) . "</b><br>";
@@ -1294,7 +1294,7 @@ sub GetHistoryLink {
 }
 
 sub GetHeader {
-  my ($id, $title, $oldId) = @_;
+  my ($id, $title, $oldId, $backlinks) = @_;
   my $header = "";
   my $logoImage = "";
   my $result = "";
@@ -1320,7 +1320,7 @@ sub GetHeader {
     }
     $header = &ScriptLink($HomePage, "<$logoImage>");
   }
-  if ($id ne '') {
+  if ($id and $backlinks) {
     $result .= $q->h1($header . &GetBackLinksSearchLink($id));
   } else {
     $result .= $q->h1($header . $title);
@@ -3279,7 +3279,7 @@ sub DoEdit {
   }
   $editRows = &GetParam("editrows", 20);
   $editCols = &GetParam("editcols", 65);
-  print &GetHeader('', &QuoteHtml($header), '');
+  print &GetHeader($id, &QuoteHtml($header), '');
   if ($revision ne '') {
     print "\n<b>"
           . Ts('Editing old revision %s.', $revision) . "  "

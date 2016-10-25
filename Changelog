@@ -5,6 +5,7 @@ Changes for bugfix release 1.0.4:
   fix contributed by JuanMtnezPineda
 * QuoteHtml, GetPageLockLink, GetAdminBar: move function to allow defered
   compilation again
+* fixed bug: make GotoBars at top and bottom look the same on the edit page
 
 Changes for bugfix release 1.0.3 (September 12, 2007):
 
