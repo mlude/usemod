@@ -9,7 +9,7 @@ Changes for bugfix release 1.0.3:
   fix contributed by StefanTrcek
 * fix bug MiscTranslation
   fix contributed by JuanMtnezPineda
-  added more translation strings
+* added more translation strings
 * DoRC: when using rcidonly text was quoted too much
   noticed by CliffordAdams (bug was introduced with XssFix in 1.0.1)
 * fix bug UrlEncoding
