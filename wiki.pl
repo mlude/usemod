@@ -1300,7 +1300,7 @@ sub GetHeader {
   $result .= '<div class=wikiheader>';
   if ($oldId ne '') {
     $result .= $q->h3('(' . Ts('redirected from %s', 
-                               &GetEditLink($oldId, $oldId), 1) . ')');
+                               &GetEditLink($oldId, &QuoteHtml($oldId)), 1) . ')');
   }
   if ((!$embed) && ($LogoUrl ne "")) {
     $logoImage = "img src=\"$LogoUrl\" alt=\"$altText\" border=0";
