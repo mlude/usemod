@@ -7,6 +7,7 @@ Changes for bugfix release 1.0.4:
   compilation again
 * fixed bug: make GotoBars at top and bottom look the same on the edit page
 * added some missing ScriptLinkChar() instead of "?"
+* updated barnesandnoble.com search URL
 
 Changes for bugfix release 1.0.3 (September 12, 2007):
 

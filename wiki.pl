@@ -179,7 +179,7 @@ $BracketImg   = 1;      # 1 = [url url.gif] becomes image link, 0 = no img
 # Names of sites.  (The first entry is used for the number link.)
 @IsbnNames = ('bn.com', 'amazon.com', 'search');
 # Full URL of each site before the ISBN
-@IsbnPre = ('http://shop.barnesandnoble.com/bookSearch/isbnInquiry.asp?isbn=',
+@IsbnPre = ('http://search.barnesandnoble.com/booksearch/isbninquiry.asp?isbn=',
             'http://www.amazon.com/exec/obidos/ISBN=',
             'http://www.pricescan.com/books/BookDetail.asp?isbn=');
 # Rest of URL of each site after the ISBN (usually '')
