@@ -1381,7 +1381,7 @@ sub GetHtmlHeader {
   if ($SiteBase ne "") {
     $html .= qq(<BASE HREF="$SiteBase">\n);
   }
-  if (($id eq $RCName) || (T($RCName) eq $id) || (T($id) eq $RCName)) {
+  unless ($action) {
     $html .= qq(<link rel="alternate" title="$SiteName RSS" href=")
           . $ScriptName . &ScriptLinkChar() . &UriEscape("action=rss&days=$RssDays")
           . qq(" type="application/rss+xml">\n);

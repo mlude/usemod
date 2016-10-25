@@ -1,7 +1,7 @@
 
 Changes for bugfix release 1.0.5:
 
-* added patch RssLinkInHeader (but only for RecentChanges)
+* added patch RssLinkInHeader (but only for normal pages)
   contributed by UngarPeter
 * added patch DoPageLockMinorTweak
   contributed by JuanMtnezPineda
