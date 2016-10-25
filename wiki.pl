@@ -2612,7 +2612,7 @@ sub UserDataFilename {
 sub ReportError {
   my ($errmsg) = @_;
 
-  print $q->header, "<H2>", $errmsg, "</H2>", $q->end_html;
+  print $q->header, "<H2>", &QuoteHtml($errmsg), "</H2>", $q->end_html;
 }
 
 sub ValidId {
