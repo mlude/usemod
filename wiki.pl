@@ -4149,11 +4149,19 @@ sub SearchTitleAndBody {
     &OpenDefaultText();
     if (($Text{'text'} =~ /$string/i) || ($name =~ /$string/i)) {
       push(@found, $name);
-    } elsif ($FreeLinks && ($name =~ m/_/)) {
-      $freeName = $name;
-      $freeName =~ s/_/ /g;
-      if ($freeName =~ /$string/i) {
-        push(@found, $name);
+    } elsif ($FreeLinks) {
+      if ($name =~ m/_/) {
+        $freeName = $name;
+        $freeName =~ s/_/ /g;
+        if ($freeName =~ /$string/i) {
+          push(@found, $name);
+        }
+      } elsif ($string =~ m/ /) {
+        $freeName = $string;
+        $freeName =~ s/ /_/g;
+        if ($Text{'text'} =~ /$freeName/i) {
+          push(@found, $name);
+        }
       }
     }
   }
