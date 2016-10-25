@@ -467,13 +467,11 @@ Unlock site
 
 Lock site
 
-Confirm Delete %s
+Delete %s
 
 Confirm deletion of %s by following this link:
 
 Confirm Delete
-
-Delete %s
 
 %s can not be deleted.
 

@@ -4919,9 +4919,9 @@ sub DoDeletePage {
   my ($id) = @_;
 
   return  if (!&ValidIdOrDie($id));
+  print &GetHeader('', Ts('Delete %s', $id), '');
   return  if (!&UserIsAdminOrError());
   if ($ConfirmDel && !&GetParam('confirm', 0)) {
-    print &GetHeader('', Ts('Confirm Delete %s', $id), '');
     print '<p>';
     print Ts('Confirm deletion of %s by following this link:', $id);
     print '<br>' . &GetDeleteLink($id, T('Confirm Delete'), 1);
@@ -4929,7 +4929,6 @@ sub DoDeletePage {
     print &GetCommonFooter();
     return;
   }
-  print &GetHeader('', Ts('Delete %s', $id), '');
   print '<p>';
   if ($id eq $HomePage)  {
     print Ts('%s can not be deleted.', $HomePage);
