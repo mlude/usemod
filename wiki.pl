@@ -317,7 +317,7 @@ sub InitLinkPatterns {
                   . "prospero|telnet|gopher";
   $UrlProtocols .= '|file'  if ($NetworkFile || !$LimitFileUrl);
   $UrlPattern = "((?:(?:$UrlProtocols):[^\\]\\s\"<>$FS]+)$QDelim)";
-  $ImageExtensions = "(gif|jpg|png|bmp|jpeg)";
+  $ImageExtensions = "(gif|jpg|png|bmp|jpeg|ico|tiff?)";
   $RFCPattern = "RFC\\s?(\\d+)";
   $ISBNPattern = "ISBN:?([0-9- xX]{10,})";
   $UploadPattern = "upload:([^\\]\\s\"<>$FS]+)$QDelim";
@@ -1957,7 +1957,7 @@ sub ImageAllowed {
 
   $imagePrefixes = 'http:|https:|ftp:';
   $imagePrefixes .= '|file:'  if (!$LimitFileUrl);
-  return 0  unless ($url =~ /^($imagePrefixes).+\.$ImageExtensions$/);
+  return 0  unless ($url =~ /^($imagePrefixes).+\.$ImageExtensions$/i);
   return 0  if ($url =~ /"/);      # No HTML-breaking quotes allowed
   return 1  if (@ImageSites < 1);  # Most common case: () means all allowed
   return 0  if ($ImageSites[0] eq 'none');  # Special case: none allowed
@@ -4983,7 +4983,7 @@ sub SaveUpload {
   $printFilename = $filename;
   $printFilename =~ s/ /\%20/g;  # Replace spaces with escaped spaces
   print "upload:" . $printFilename . "<BR><BR>\n";
-  if ($filename =~ /${ImageExtensions}$/) {
+  if ($filename =~ /$ImageExtensions$/i) {
     print '<HR><img src="' . $UploadUrl . $filename . '">' . "\n";
   }
   print &GetCommonFooter();
