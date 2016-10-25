@@ -3824,7 +3824,7 @@ sub PrintPageList {
 
 sub DoLinks {
   print &GetHeader('', &QuoteHtml(T('Full Link List')), '');
-  print "<hr><pre>";
+  print "<pre>";
   &PrintLinkList(&GetFullLinkList());
   print "</pre>\n";
   print &GetCommonFooter();
