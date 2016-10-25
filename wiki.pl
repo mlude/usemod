@@ -1381,6 +1381,9 @@ sub GetHtmlHeader {
   if ($SiteBase ne "") {
     $html .= qq(<BASE HREF="$SiteBase">\n);
   }
+  $html .= qq(<link rel="alternate" title="$SiteName RSS" href=")
+        . $ScriptName . &ScriptLinkChar() . &UriEscape("action=rss&days=5")
+        . qq(" type="application/rss+xml">\n);
   $stylesheet = &GetParam('stylesheet', $StyleSheet);
   $stylesheet = $StyleSheet  if ($stylesheet eq '');
   $stylesheet = ''  if ($stylesheet eq '*');  # Allow removing override

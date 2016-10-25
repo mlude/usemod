@@ -1,4 +1,9 @@
 
+Changes for bugfix release 1.0.5:
+
+* added patch RssLinkInHeader
+  contributed by UngarPeter
+
 Changes for bugfix release 1.0.4 (December 1, 2007):
 
 * fixed bug NoDisplayFooterInActionLink
