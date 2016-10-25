@@ -91,6 +91,24 @@ Database is stored in temporary directory %s
 
 Config file error:
 
+Administration
+
+Unlock page
+
+Lock page
+
+Delete this page
+
+Edit Banned List
+
+Run Maintenance
+
+Edit/Rename pages
+
+Unlock site
+
+Lock site
+
 Search:
 
 Go!
@@ -486,24 +504,6 @@ Rename: new page %s already exists--not renamed.
 Rename: old page %s does not exist--nothing done.
 
 Displaying Wiki Version
-
-Administration
-
-Unlock page
-
-Lock page
-
-Delete this page
-
-Edit Banned List
-
-Run Maintenance
-
-Edit/Rename pages
-
-Unlock site
-
-Lock site
 
 Delete %s
 
