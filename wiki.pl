@@ -3047,7 +3047,7 @@ sub CalcDay {
   $ts += $TimeZoneOffset;
   my ($sec, $min, $hour, $mday, $mon, $year) = localtime($ts);
   if ($NumberDates) {
-    return ($year + 1900) . '-' . ($mon+1) . '-' . $mday;
+    return sprintf("%d-%02d-%02d", $year+1900, $mon+1, $mday);
   }
   return ("January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November",
@@ -3064,15 +3064,15 @@ sub CalcTime {
   if (($TimeZoneOffset == 0) && ($ScriptTZ ne "")) {
     $mytz = " " . $ScriptTZ;
   }
-  $ampm = "";
-  if ($UseAmPm) {
+  unless ($UseAmPm) {
+    return sprintf("%02d:%02d$mytz", $hour, $min);
+  }
     $ampm = " am";
     if ($hour > 11) {
       $ampm = " pm";
       $hour = $hour - 12;
     }
     $hour = 12   if ($hour == 0);
-  }
   $min = "0" . $min   if ($min<10);
   return $hour . ":" . $min . $ampm . $mytz;
 }
