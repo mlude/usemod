@@ -4515,12 +4515,12 @@ sub DoEditBanned {
         "a hostname).  <b>Note:</b> To test the ban on yourself, you must ",
         "give up your admin access (remove password in Preferences).";
   print "<p>Example:<br>",
-        "# blocks hosts ending with .foocorp.com<br>",
-        "\\.foocorp\\.com\$<br>",
-        "# blocks exact IP address<br>",
-        "^123\\.21\\.3\\.9\$<br>",
-        "# blocks whole 123.21.3.* IP network<br>",
-        "^123\\.21\\.3\\.\\d+\$<p>";
+        "<tt># blocks hosts ending with .foocorp.com</tt><br>",
+        "<tt>\\.foocorp\\.com\$</tt><br>",
+        "<tt># blocks exact IP address</tt><br>",
+        "<tt>^123\\.21\\.3\\.9\$</tt><br>",
+        "<tt># blocks whole 123.21.3.* IP network</tt><br>",
+        "<tt>^123\\.21\\.3\\.\\d+\$</tt><p>";
   print &GetTextArea('banlist', $banList, 12, 50);
   print "<br>", $q->submit(-name=>'Save'), "\n";
   print $q->endform;

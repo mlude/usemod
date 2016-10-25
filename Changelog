@@ -10,6 +10,8 @@ Changes for bugfix release 1.0.5:
   fix contributed by GunnarH
 * fixed bug ExtraBRAtDoBackLinks
   fix contributed by JuanMtnezPineda
+* fixed bug TTatDoEditBanned
+  fix contributed by JuanMtnezPineda
 
 Changes for bugfix release 1.0.4 (December 1, 2007):
 
