@@ -684,7 +684,7 @@ sub DoRc {
 
   $idOnly = &GetParam("rcidonly", "");
   if ($idOnly && $showHTML) {
-    print '<b>(' . Ts('for %s only', &ScriptLink($idOnly, $idOnly))
+    print '<b>(' . Ts('for %s only', &ScriptLink($idOnly, &QuoteHtml($idOnly)), 1)
           . ')</b><br>';
   }
   if ($showHTML) {
