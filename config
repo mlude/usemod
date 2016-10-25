@@ -96,7 +96,7 @@ $MaskHosts    = 0;      # 1 = mask hosts/IPs,      0 = no masking
 $LockCrash    = 0;      # 1 = crash if lock stuck, 0 = auto clear locks
 $HistoryEdit  = 0;      # 1 = edit links on history page, 0 = no edit links
 $OldThinLine  = 0;      # 1 = old ==== thick line, 0 = ------ for thick line
-$NumberDates  = 0;      # 1 = 2003-6-17 dates,     0 = June 17, 2003 dates
+$NumberDates  = 0;      # 1 = 2003-06-17 dates,    0 = June 17, 2003 dates
 $ParseParas   = 0;      # 1 = new paragraph markup, 0 = old markup
 $AuthorFooter = 1;      # 1 = show last author in footer, 0 = do not show
 $AllUpload    = 0;      # 1 = anyone can upload,   0 = only editor/admins
