@@ -1699,6 +1699,15 @@ sub CommonMarkup {
   return $_;
 }
 
+sub EmptyCellsToNbsp {
+  my ($row) = @_;
+
+  $row =~ s/(?<=\|\|)(\s+)(?=\|\|)/&nbsp;/g;
+  $row =~ s/^\s+(?=\|\|)/&nbsp;/;
+  $row =~ s/(?<=\|\|)(\s+)$/&nbsp;/;
+  return $row;
+}
+
 sub WikiLinesToHtml {
   my ($pageText) = @_;
   my ($pageHtml, @htmlStack, $code, $codeAttributes, $depth, $oldCode);
@@ -1726,7 +1735,7 @@ sub WikiLinesToHtml {
     } elsif ($TableSyntax &&
              s/^((\|\|)+)(.*)\|\|\s*$/"<TR VALIGN='CENTER' "
                                       . "ALIGN='CENTER'><TD colspan='"
-                               . (length($1)\/2) . "'>$3<\/TD><\/TR>\n"/e) {
+                               . (length($1)\/2) . "'>" . EmptyCellsToNbsp($3) . "<\/TD><\/TR>\n"/e) {
       $code = 'TABLE';
       $codeAttributes = "BORDER='1'";
       $TableMode = 1;
