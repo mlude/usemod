@@ -7,6 +7,7 @@ Changes for bugfix release 1.0.2:
 * fixed bug ActionEqIndexAndEmbedEqOne
   same problem with other actions and parameter embed
 * moved CSS class wikilinefooter (for <HR>) inside class wikifooter
+* fixed bug ClassWikifooterMissing
 * fixed bug VariableParseParasYieldsOddOutput
   fix contributed by Trent, simplified
 * fixed bug UploadTranslation
