@@ -4945,8 +4945,8 @@ sub DoUpload {
   print '<FORM METHOD="post" ACTION="' . $ScriptName
         . '" ENCTYPE="multipart/form-data">';
   print '<input type="hidden" name="upload" value="1" />';
-  print 'File to Upload: <INPUT TYPE="file" NAME="file"><br><BR>';
-  print '<INPUT TYPE="submit" NAME="Submit" VALUE="Upload">';
+  print T('File to Upload:'), ' <INPUT TYPE="file" NAME="file"><br><BR>';
+  print '<INPUT TYPE="submit" NAME="Submit" VALUE="', T('Upload'), '">';
   print '</FORM>';
   print &GetCommonFooter(); 
 }

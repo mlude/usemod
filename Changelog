@@ -4,11 +4,13 @@ Changes for bugfix release 1.0.2:
 * added CREDITS and Changelog (forgot them in 1.0.1)
 * make .zip distribution for Windows users again (forgot it for 1.0.1)
 * fixed range in SplitUrlPunct()
-* fixed bug ActionEqIndexAndEmbedEqOne reported by StefanTrcek
+* fixed bug ActionEqIndexAndEmbedEqOne
   same problem with other actions and parameter embed
 * moved CSS class wikilinefooter (for <HR>) inside class wikifooter
 * fixed bug VariableParseParasYieldsOddOutput
   fix contributed by Trent, simplified
+* fixed bug UploadTranslation
+  fix contributed by UngarPeter
 
 Changes for bugfix release 1.0.1:
 
