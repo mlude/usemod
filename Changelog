@@ -1,18 +1,23 @@
 
+Changes for bugfix release 1.0.4:
+
+* fixed bug NoDisplayFooterInActionLink
+  fix contributed by JuanMtnezPineda
+
 Changes for bugfix release 1.0.3 (September 12, 2007):
 
 * fixed bug IntermapedGifNotInlinedForLink
 * fixed bug AuthenicationFailedNoHeader
 * fixed bug BacklinksMissesSomeFreeLinks
   fix contributed by BrianHunter
-* fix bug EmptyTableElements
+* fixed bug EmptyTableElements
   fix contributed by StefanTrcek
-* fix bug MiscTranslation
+* fixed bug MiscTranslation
   fix contributed by JuanMtnezPineda
 * added more translation strings
 * DoRC: when using rcidonly text was quoted too much
   noticed by CliffordAdams (bug was introduced with XssFix in 1.0.1)
-* fix bug UrlEncoding
+* fixed bug UrlEncoding
   fix contributed by StefanTrcek
 
 Changes for bugfix release 1.0.2 (August 26, 2007):
