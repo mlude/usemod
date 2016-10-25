@@ -4453,7 +4453,7 @@ sub UserIsAdminOrError {
 sub DoEditLock {
   my ($set, $fname);
 
-  $set = &GetParam("set", 1);
+  $set = &GetParam("set", 1) ? 1 : 0;
   if ($set) {
     print &GetHeader('', T('Set global edit lock'), '');
   } else {
@@ -4477,7 +4477,7 @@ sub DoEditLock {
 sub DoPageLock {
   my ($set, $fname, $id);
 
-  $set = &GetParam("set", 1);
+  $set = &GetParam("set", 1) ? 1 : 0;
   if ($set) {
     print &GetHeader('', T('Set page edit lock'), '');
   } else {
