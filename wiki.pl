@@ -1098,12 +1098,14 @@ sub ScriptLinkChar {
 sub ScriptLink {
   my ($action, $text) = @_;
 
+  $action = &UriEscape($action);
   return "<a href=\"$ScriptName" . &ScriptLinkChar() . "$action\">$text</a>";
 }
 
 sub ScriptLinkClass {
   my ($action, $text, $class) = @_;
 
+  $action = &UriEscape($action);
   return "<a href=\"$ScriptName" . &ScriptLinkChar() . "$action\""
          . ' class=' . $class . ">$text</a>";
 }
@@ -1247,6 +1249,7 @@ sub GetUploadLink {
 sub ScriptLinkTitle {
   my ($action, $text, $title) = @_;
 
+  $action = &UriEscape($action);
   if ($FreeLinks) {
     $action =~ s/ /_/g;
   }
@@ -1411,7 +1414,7 @@ sub GetFooterText {
     $result .= &GetPageLinkText($id, T('View current revision'));
   }
   if ($UseMetaWiki) {
-    $result .= ' | <a href="http://sunir.org/apps/meta.pl?' . $id . '">'
+    $result .= ' | <a href="http://sunir.org/apps/meta.pl?' . &UriEscape($id) . '">'
                . T('Search MetaWiki') . '</a>';
   }
   if ($Section{'revision'} > 0) {
@@ -1518,7 +1521,7 @@ sub GetRedirectPage {
 
   # Normally get URL from script, but allow override.
   $FullUrl = $q->url(-full=>1)  if ($FullUrl eq "");
-  $url = $FullUrl . &ScriptLinkChar() . $newid;
+  $url = $FullUrl . &ScriptLinkChar() . &UriEscape($newid);
   $nameLink = "<a href=\"$url\">$name</a>";
   if ($RedirType < 3) {
     if ($RedirType == 1) {             # Use CGI.pm
@@ -1787,6 +1790,13 @@ sub EvalLocalRules {
   return $text;
 }
  
+sub UriEscape {
+  my ($uri) = @_;
+  $uri =~ s/([\x00-\x1f\x7f-\xff])/sprintf("%%%02X", ord($1))/ge;
+  $uri =~ s/\&/\&amp;/g;
+  return $uri;
+}
+
 sub QuoteHtml {
   my ($html) = @_;
 
@@ -4078,7 +4088,7 @@ sub EmailNotify {
     $address =~ s/\n//g;
     close(EMAIL);
     my $home_url = $q->url();
-    my $page_url = $home_url . "?$id";
+    my $page_url = $home_url . &ScriptLinkChar() . &UriEscape($id);
     my $editors_summary = $q->param("summary");
     if (($editors_summary eq "*") or ($editors_summary eq "")){
       $editors_summary = "";
