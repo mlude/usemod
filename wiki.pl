@@ -1853,7 +1853,7 @@ sub EvalLocalRules {
  
 sub UriEscape {
   my ($uri) = @_;
-  $uri =~ s/([\x00-\x1f\x7f-\xff])/sprintf("%%%02X", ord($1))/ge;
+  $uri =~ s/([^\w\-.!~*'()\&])/sprintf("%%%02X", ord($1))/ge;
   $uri =~ s/\&/\&amp;/g;
   return $uri;
 }
