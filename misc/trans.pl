@@ -487,6 +487,8 @@ The current upload size limit is %s.
 
 Change the %s variable to increase this limit.
 
+File to Upload:
+
 Upload Finished
 
 The wiki link to your file is:
