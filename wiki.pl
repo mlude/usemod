@@ -1340,11 +1340,12 @@ sub GetHttpHeader {
 
   $type = 'text/html'  if ($type eq '');
   if (defined($SetCookie{'id'})) {
-    $cookie = "$CookieName="
-            . "rev&" . $SetCookie{'rev'}
-            . "&id&" . $SetCookie{'id'}
-            . "&randkey&" . $SetCookie{'randkey'};
-    $cookie .= ";expires=Fri, 08-Sep-2013 19:48:23 GMT";
+    $cookie = $q->cookie(
+                -name => $CookieName,
+                -value => { rev => $SetCookie{'rev'},
+                            id => $SetCookie{'id'},
+                            randkey => $SetCookie{'randkey'} },
+                -expires => '+3y');
     if ($HttpCharset ne '') {
       return $q->header(-cookie=>$cookie,
                         -type=>"$type; charset=$HttpCharset");
