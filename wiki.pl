@@ -1466,7 +1466,7 @@ sub GetFooterText {
     $result .= '<br><b>' . T('Config file error:') . '</b> '
                . $ConfigError . '<br>';
   }
-  $result .= $q->endform;
+  $result .= $q->end_form;
   if ($FooterNote ne '') {
     $result .= T($FooterNote);
   }
@@ -1480,7 +1480,7 @@ sub GetCommonFooter {
 
   $html = '<div class=wikifooter>' . '<hr class=wikilinefooter>'
           . &GetFormStart() . &GetGotoBar('')
-          . &GetSearchForm() . $q->endform;
+          . &GetSearchForm() . $q->end_form;
   if ($FooterNote ne '') {
     $html .= T($FooterNote);
   }
@@ -1493,7 +1493,7 @@ sub GetMinimumFooter {
 }
 
 sub GetFormStart {
-  return $q->startform("POST", "$ScriptName",
+  return $q->start_form("POST", "$ScriptName",
                        "application/x-www-form-urlencoded");
 }
 
@@ -3370,7 +3370,7 @@ sub DoEdit {
     print "<h2>", T('Preview only, not yet saved'), "</h2>\n";
     print '</div>';
   }
-  print $q->endform;
+  print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
@@ -3476,7 +3476,7 @@ sub DoEditPrefs {
   print '<br>' . T('StyleSheet URL:') . ' ',
         &GetFormText('stylesheet', "", 30, 150);
   print '<br>', $q->submit(-name=>'Save', -value=>T('Save')), "\n";
-  print $q->endform;
+  print $q->end_form;
   print '</div>';
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
@@ -3700,7 +3700,7 @@ sub DoEnterLogin {
         $q->password_field(-name=>'p_password', -value=>'', 
                            -size=>15, -maxlength=>50);
   print '<br>', $q->submit(-name=>'Login', -value=>T('Login')), "\n";
-  print $q->endform;
+  print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
@@ -4525,7 +4525,7 @@ sub DoEditBanned {
         "<tt>^123\\.21\\.3\\.\\d+\$</tt><p>";
   print &GetTextArea('banlist', $banList, 12, 50);
   print "<br>", $q->submit(-name=>'Save'), "\n";
-  print $q->endform;
+  print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
@@ -4581,7 +4581,7 @@ sub DoEditLinks {
   print $q->checkbox(-name=>"p_changetext", -override=>1, -checked=>1,
                       -label=>"Substitute text for rename");
   print "<br>", $q->submit(-name=>'Edit'), "\n";
-  print $q->endform;
+  print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
