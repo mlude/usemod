@@ -1,5 +1,5 @@
 
-Changes for bugfix release 1.0.6:
+Changes for bugfix release 1.0.6 (November 05, 2016):
 
 * fixed bug CookieIgnored
 * fixed bug CGIStartformAndEndform
