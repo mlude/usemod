@@ -4942,6 +4942,11 @@ sub RenamePage {
   unlink($newkeep)  if (-f $newkeep);  # Clean up if needed.
   rename($oldkeep,  $newkeep);
   unlink($IndexFile)  if ($UseIndex);
+  my $oldlock = &GetLockedPageFile($old);
+  if (-f $oldlock) {
+    my $newlock = &GetLockedPageFile($new);
+    rename($oldlock, $newlock);
+  }
   &EditRecentChanges(2, $old, $new)  if ($doRC);
   if ($doText) {
     &BuildLinkIndexPage($new);  # Keep index up-to-date
