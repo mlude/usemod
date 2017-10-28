@@ -1070,7 +1070,7 @@ sub GetHistoryLine {
   $minor = '<i>' . T('(edit)') . '</i> '  if ($revtext{'minor'});
   $expirets = $Now - ($KeepDays * 24 * 60 * 60);
   if ($UseDiff) {
-    my ($c1, $c2);
+    my ($c1, $c2) = ('', '');
     $c1 = 'checked="checked"' if 1 == $row;
     $c2 = 'checked="checked"' if 0 == $row;
     $html .= "<tr><td align='center'><input type='radio' "
