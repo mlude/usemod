@@ -425,7 +425,7 @@ sub InitRequest {
     $q->charset($HttpCharset);
   }
   $Now = time;                     # Reset in case script is persistent
-  $ScriptName = pop(@ScriptPath);  # Name used in links
+  $ScriptName = pop(@ScriptPath) || '';  # Name used in links
   $IndexInit = 0;                  # Must be reset for each request
   $InterSiteInit = 0;
   %InterSite = ();
