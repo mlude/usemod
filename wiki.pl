@@ -2151,6 +2151,7 @@ sub SplitUrlPunct {
     ($punct) = ($url =~ /([^a-zA-Z0-9\/\xc0-\xff]+)$/);
     $url =~ s/([^a-zA-Z0-9\/\xc0-\xff]+)$//;
   }
+  $punct ||= '';
   return ($url, $punct);
 }
 
