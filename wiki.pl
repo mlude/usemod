@@ -3533,7 +3533,7 @@ sub DoUpdatePrefs {
   }
   if ($username eq "") {
     print T('UserName removed.'), '<br>';
-    undef $UserData{'username'};
+    delete $UserData{'username'};
   } elsif ((!$FreeLinks) && (!($username =~ /^$LinkPattern$/))) {
     print Ts('Invalid UserName %s: not saved.', $username), "<br>\n";
   } elsif ($FreeLinks && (!($username =~ /^$FreeLinkPattern$/))) {
@@ -3547,7 +3547,7 @@ sub DoUpdatePrefs {
   $password = &GetParam("p_password",  "");
   if ($password eq "") {
     print T('Password removed.'), '<br>';
-    undef $UserData{'password'};
+    delete $UserData{'password'};
   } elsif ($password ne "*") {
     print T('Password changed.'), '<br>';
     $UserData{'password'} = $password;
@@ -3556,7 +3556,7 @@ sub DoUpdatePrefs {
     $password = &GetParam("p_adminpw",  "");
     if ($password eq "") {
       print T('Administrator password removed.'), '<br>';
-      undef $UserData{'adminpw'};
+      delete $UserData{'adminpw'};
     } elsif ($password ne "*") {
       print T('Administrator password changed.'), '<br>';
       $UserData{'adminpw'} = $password;
@@ -3598,7 +3598,7 @@ sub DoUpdatePrefs {
     if (&GetParam('stylesheet', '') ne '') {
       print T('StyleSheet URL removed.'), '<br>';
     }
-    undef $UserData{'stylesheet'};
+    delete $UserData{'stylesheet'};
   } else {
     $stylesheet =~ s/[">]//g;  # Remove characters that would cause problems
     $UserData{'stylesheet'} = $stylesheet;
