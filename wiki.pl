@@ -1654,6 +1654,7 @@ sub WikiToHTML {
     $pageText = &CommonMarkup($pageText, 1, 0);   # Multi-line markup
     $pageText = &WikiLinesToHtml($pageText);      # Line-oriented markup
   }
+  $TableOfContents ||= '';
   while (@HeadingNumbers) {
     pop @HeadingNumbers;
     $TableOfContents .= "</dd></dl>\n\n";
