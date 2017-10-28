@@ -447,13 +447,16 @@ sub InitCookie {
   %UserData = ();          # Fix for persistent environments.
   %UserCookie = $q->cookie($CookieName);
   $UserID = $UserCookie{'id'} || 0;
-  $UserID =~ s/\D//g;  # Numeric only
-  if ($UserID < 200) {
-    $UserID = 111;
+  if ($UserID =~ /^(\d+)$/) {
+    $UserID = $1; # untaint;
+    if ($UserID < 200) {
+      $UserID = 111;
+    }
   } else {
-    &LoadUserData($UserID);
+    $UserID = 111;
   }
   if ($UserID > 199) {
+    &LoadUserData($UserID);
     if (($UserData{'id'}       != $UserCookie{'id'})      ||
         ($UserData{'randkey'}  != $UserCookie{'randkey'})) {
       $UserID = 113;
