@@ -4,6 +4,7 @@ Changes for next release:
 * fix warnings
 * enable taint mode (perl -T)
 * fix for taint mode
+  based on work by MarkIrons
 
 Changes for bugfix release 1.0.6 (November 05, 2016):
 
