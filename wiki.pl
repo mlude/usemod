@@ -3993,6 +3993,19 @@ sub DoPost {
 
   if ($FreeLinks) {
     $id = &FreeToNormal($id);
+    if ($id =~ /^($FreeLinkPattern)$/) {
+      $id = $1; # untaint
+    } else {
+      &ReportError(Ts('Invalid Page %s', $id));
+      return;
+    }
+  } else {
+    if ($id =~ /^($LinkPattern)$/) {
+      $id = $1; # untaint
+    } else {
+      &ReportError(Ts('Invalid Page %s', $id));
+      return;
+    }
   }
   if (!&UserCanEdit($id, 1)) {
     # This is an internal interface--we don't need to explain
