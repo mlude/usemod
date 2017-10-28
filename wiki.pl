@@ -411,7 +411,7 @@ use CGI;
 use CGI::Carp qw(fatalsToBrowser);
 
 sub InitRequest {
-  my @ScriptPath = split('/', "$ENV{SCRIPT_NAME}");
+  my @ScriptPath = $ENV{SCRIPT_NAME} ? split('/', $ENV{SCRIPT_NAME}) : ();
 
   $CGI::POST_MAX = $MaxPost;
   if ($UseUpload) {
