@@ -441,20 +441,15 @@ sub InitRequest {
 }
 
 sub InitCookie {
+  my $unsafe_uid;
+
   %SetCookie = ();
   $TimeZoneOffset = 0;
   undef $q->{'.cookies'};  # Clear cache if it exists (for SpeedyCGI)
   %UserData = ();          # Fix for persistent environments.
   %UserCookie = $q->cookie($CookieName);
-  $UserID = $UserCookie{'id'} || 0;
-  if ($UserID =~ /^(\d+)$/) {
-    $UserID = $1; # untaint;
-    if ($UserID < 200) {
-      $UserID = 111;
-    }
-  } else {
-    $UserID = 111;
-  }
+  $unsafe_uid = $UserCookie{'id'} || 0;
+  $UserID = &SanitizeUserID($unsafe_uid);
   if ($UserID > 199) {
     &LoadUserData($UserID);
     if (($UserData{'id'}       != $UserCookie{'id'})      ||
@@ -2756,6 +2751,19 @@ sub SanitizePageName {
     }
   }
   return $id;
+}
+
+sub SanitizeUserID {
+  my ($unsafe_uid) = @_;
+  my $uid = 111;
+
+  if ($unsafe_uid =~ /^(\d+)$/) {
+    $uid = $1; # untaint
+    if ($uid < 200) {
+      $uid = 111;
+    }
+  }
+  return $uid;
 }
 
 sub UserCanEdit {
