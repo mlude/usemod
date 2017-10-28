@@ -2568,9 +2568,9 @@ sub ExpireKeepFile {
   return  if (!(-f $fname));
   $data = &ReadFileOrDie($fname);
   @kplist = split(/$FS1/, $data, -1);  # -1 keeps trailing null fields
-  return  if (length(@kplist) < 1);  # Also empty
+  return  if (scalar(@kplist) < 1);  # Also empty
   shift(@kplist)  if ($kplist[0] eq "");  # First can be empty
-  return  if (length(@kplist) < 1);  # Also empty
+  return  if (scalar(@kplist) < 1);  # Also empty
   %tempSection = split(/$FS2/, $kplist[0], -1);
   if (!defined($tempSection{'keepts'})) {
     return;  # Bad keep file
@@ -4810,9 +4810,9 @@ sub RenameKeepText {
   ($status, $data) = &ReadFile($fname);
   return  if (!$status);
   @kplist = split(/$FS1/, $data, -1);  # -1 keeps trailing null fields
-  return  if (length(@kplist) < 1);  # Also empty
+  return  if (scalar(@kplist) < 1);  # Also empty
   shift(@kplist)  if ($kplist[0] eq "");  # First can be empty
-  return  if (length(@kplist) < 1);  # Also empty
+  return  if (scalar(@kplist) < 1);  # Also empty
   %tempSection = split(/$FS2/, $kplist[0], -1);
   if (!defined($tempSection{'keepts'})) {
     return;
