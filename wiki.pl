@@ -3116,7 +3116,7 @@ sub GetRemoteHost {
   my ($doMask) = @_;
   my ($rhost, $iaddr);
 
-  $rhost = $ENV{REMOTE_HOST};
+  $rhost = $ENV{REMOTE_HOST} || '';
   if ($UseLookup && ($rhost eq "")) {
     # Catch errors (including bad input) without aborting the script
     eval 'use Socket; $iaddr = inet_aton($ENV{REMOTE_ADDR});'
