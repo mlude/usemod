@@ -775,9 +775,11 @@ sub GetRc {
   $tEdit    = T('(edit)');
   $tDiff    = T('(diff)');
   $tChanges = T('changes');
-  $pagePrefix = $QuotedFullUrl . &ScriptLinkChar();
-  $diffPrefix = $pagePrefix . &QuoteHtml("action=browse&diff=4&id=");
-  $historyPrefix = $pagePrefix . &QuoteHtml("action=history&id=");
+  if (0 == $rcType) {  # RSS
+    $pagePrefix = $QuotedFullUrl . &ScriptLinkChar();
+    $diffPrefix = $pagePrefix . &QuoteHtml("action=browse&diff=4&id=");
+    $historyPrefix = $pagePrefix . &QuoteHtml("action=history&id=");
+  }
   foreach $rcline (@outrc) {
     ($ts, $pagename) = split(/$FS3/, $rcline);
     $pagecount{$pagename}++;
