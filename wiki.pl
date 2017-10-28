@@ -3748,11 +3748,11 @@ sub DoEnterLogin {
 }
 
 sub DoLogin {
-  my ($uid, $password, $success);
+  my ($unsafe_uid, $uid, $password, $success);
 
   $success = 0;
-  $uid = &GetParam("p_userid", "");
-  $uid =~ s/\D//g;
+  $unsafe_uid = &GetParam("p_userid", "");
+  $uid = &SanitizeUserID($unsafe_uid);
   $password = &GetParam("p_password",  "");
   if (($uid > 199) && ($password ne "") && ($password ne "*")) {
     $UserID = $uid;
@@ -3769,9 +3769,9 @@ sub DoLogin {
   }
   print &GetHeader('', T('Login Results'), '');
   if ($success) {
-    print Ts('Login for user ID %s complete.', $uid);
+    print Ts('Login for user ID %s complete.', $unsafe_uid);
   } else {
-    print Ts('Login for user ID %s failed.', $uid);
+    print Ts('Login for user ID %s failed.', $unsafe_uid);
   }
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
