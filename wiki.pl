@@ -1964,6 +1964,7 @@ sub StorePre {
 sub StoreHref {
   my ($anchor, $text) = @_;
 
+  $text ||= '';
   return "<a" . &StoreRaw($anchor) . ">$text</a>";
 }
 
