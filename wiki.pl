@@ -2739,6 +2739,26 @@ sub ValidIdOrDie {
   return 1;
 }
 
+sub SanitizePageName {
+  my ($unsafe_id) = @_;
+  my $id;
+
+  if ($FreeLinks) {
+    if ($unsafe_id =~ /^($FreeLinkPattern)$/) {
+      $id = $1; # untaint
+    } else {
+      return '';
+    }
+  } else {
+    if ($unsafe_id =~ /^($LinkPattern)$/) {
+      $id = $1; # untaint
+    } else {
+      return '';
+    }
+  }
+  return $id;
+}
+
 sub UserCanEdit {
   my ($id, $deepCheck) = @_;
 
@@ -3981,9 +4001,9 @@ sub GetPageLinks {
 }
 
 sub DoPost {
-  my ($editDiff, $old, $newAuthor, $pgtime, $oldrev, $preview, $user);
+  my ($id, $editDiff, $old, $newAuthor, $pgtime, $oldrev, $preview, $user);
   my $string = &GetParam("text", undef);
-  my $id = &GetParam("title", "");
+  my $unsafe_id = &GetParam("title", "");
   my $summary = &GetParam("summary", "");
   my $oldtime = &GetParam("oldtime", "");
   my $oldconflict = &GetParam("oldconflict", "");
@@ -3992,20 +4012,12 @@ sub DoPost {
   my $authorAddr = $ENV{REMOTE_ADDR};
 
   if ($FreeLinks) {
-    $id = &FreeToNormal($id);
-    if ($id =~ /^($FreeLinkPattern)$/) {
-      $id = $1; # untaint
-    } else {
-      &ReportError(Ts('Invalid Page %s', $id));
-      return;
-    }
-  } else {
-    if ($id =~ /^($LinkPattern)$/) {
-      $id = $1; # untaint
-    } else {
-      &ReportError(Ts('Invalid Page %s', $id));
-      return;
-    }
+    $unsafe_id = &FreeToNormal($unsafe_id);
+  }
+  $id = &SanitizePageName($unsafe_id);
+  if (!$id) {
+    &ReportError(Ts('Invalid Page %s', $unsafe_id));
+    return;
   }
   if (!&UserCanEdit($id, 1)) {
     # This is an internal interface--we don't need to explain
