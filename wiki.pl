@@ -2645,6 +2645,7 @@ sub OpenKeptRevisions {
   &OpenKeptList();
   foreach (@KeptList) {
     %tempSection = split(/$FS2/, $_, -1);
+    next  unless ($tempSection{'name'});
     next  if ($tempSection{'name'} ne $name);
     $KeptRevisions{$tempSection{'revision'}} = $_;
   }
