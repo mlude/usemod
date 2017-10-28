@@ -446,7 +446,7 @@ sub InitCookie {
   undef $q->{'.cookies'};  # Clear cache if it exists (for SpeedyCGI)
   %UserData = ();          # Fix for persistent environments.
   %UserCookie = $q->cookie($CookieName);
-  $UserID = $UserCookie{'id'};
+  $UserID = $UserCookie{'id'} || 0;
   $UserID =~ s/\D//g;  # Numeric only
   if ($UserID < 200) {
     $UserID = 111;
