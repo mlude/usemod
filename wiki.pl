@@ -946,6 +946,8 @@ sub GetRssRcLine{
   # Add to list of items proper.
   if (($summary ne "") && ($summary ne "*")) {
     $description = &QuoteHtml($summary);
+  } else {
+    $description = '';
   }
   $host = &QuoteHtml($host);
   if ($userName) {
@@ -953,6 +955,7 @@ sub GetRssRcLine{
     $authorLink = 'link="' . $QuotedFullUrl . &ScriptLinkChar() . &UriEscape($author) . '"';
   } else {
     $author = $host;
+    $authorLink = '';
   }
   $status = (1 == $revision) ? 'new' : 'updated';
   $importance = $isEdit ? 'minor' : 'major';
