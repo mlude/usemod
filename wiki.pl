@@ -1468,7 +1468,7 @@ sub GetFooterText {
                . Ts('Database is stored in temporary directory %s',
                     $DataDir) . '<br>';
   }
-  if ($ConfigError ne '') {
+  if ($ConfigError) {
     $result .= '<br><b>' . T('Config file error:') . '</b> '
                . $ConfigError . '<br>';
   }
