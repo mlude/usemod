@@ -460,7 +460,7 @@ sub InitCookie {
       %UserData = ();   # Invalid.  Consider warning message.
     }
   }
-  if ($UserData{'tzoffset'} != 0) {
+  if ($UserData{'tzoffset'}) {
     $TimeZoneOffset = $UserData{'tzoffset'} * (60 * 60);
   }
 }
