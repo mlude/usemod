@@ -5186,6 +5186,6 @@ sub DoTrimUsers {
 }
 #END_OF_OTHER_CODE
 
-&DoWikiRequest()  if ($RunCGI && ($_ ne 'nocgi'));   # Do everything.
+&DoWikiRequest()  if ($RunCGI && (!$_ or $_ ne 'nocgi'));   # Do everything.
 1; # In case we are loaded from elsewhere
 # == End of UseModWiki script. ===========================================
