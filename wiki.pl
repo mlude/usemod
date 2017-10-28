@@ -1072,6 +1072,7 @@ sub GetHistoryLine {
   $minor = '';
   $minor = '<i>' . T('(edit)') . '</i> '  if ($revtext{'minor'});
   $expirets = $Now - ($KeepDays * 24 * 60 * 60);
+  $html = '';
   if ($UseDiff) {
     my ($c1, $c2) = ('', '');
     $c1 = 'checked="checked"' if 1 == $row;
