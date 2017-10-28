@@ -2741,19 +2741,15 @@ sub ValidIdOrDie {
 
 sub SanitizePageName {
   my ($unsafe_id) = @_;
-  my $id;
+  my $id = '';
 
   if ($FreeLinks) {
     if ($unsafe_id =~ /^($FreeLinkPattern)$/) {
       $id = $1; # untaint
-    } else {
-      return '';
     }
   } else {
     if ($unsafe_id =~ /^($LinkPattern)$/) {
       $id = $1; # untaint
-    } else {
-      return '';
     }
   }
   return $id;
