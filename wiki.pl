@@ -3329,7 +3329,7 @@ sub DoEdit {
         $q->textfield(-name=>'summary',
                       -default=>$summary, -override=>1,
                       -size=>60, -maxlength=>200);
-  if (&GetParam("recent_edit") eq "on") {
+  if (&GetParam("recent_edit", '') eq "on") {
     print "<br>", $q->checkbox(-name=>'recent_edit', -checked=>1,
                                -label=>T('This change is a minor edit.'));
   } else {
