@@ -464,7 +464,7 @@ sub InitCookie {
 }
 
 sub DoBrowseRequest {
-  my ($id, $action, $text);
+  my ($id, $action);
 
   if (!$q->param) {             # No parameter
     &BrowsePage($HomePage);
@@ -3190,7 +3190,7 @@ $OtherCode = ""; # Comment next line to always compile (slower)
 #$OtherCode = <<'#END_OF_OTHER_CODE';
 
 sub DoOtherRequest {
-  my ($id, $action, $text, $search);
+  my ($id, $action, $search);
 
   $action = &GetParam("action", "");
   $id = &GetParam("id", "");
