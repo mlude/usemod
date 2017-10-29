@@ -5009,9 +5009,15 @@ sub DoShowVersion {
 
 # Thanks to Phillip Riley for original code
 sub DoDeletePage {
-  my ($id) = @_;
+  my ($unsafe_id) = @_;
+  my $id;
 
-  return  if (!&ValidIdOrDie($id));
+  return  if (!&ValidIdOrDie($unsafe_id));
+  $id = &SanitizePageName($unsafe_id);
+  if (!$id) {
+    &ReportError(Ts('Invalid Page %s', $unsafe_id));
+    return;
+  }
   print &GetHeader('', Ts('Delete %s', $id), '');
   return  if (!&UserIsAdminOrError());
   if ($ConfirmDel && !&GetParam('confirm', 0)) {
