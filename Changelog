@@ -7,6 +7,8 @@ Changes for next release:
   based on work by MarkIrons
 * fixed bug UnusedVariableDeclaration
   fix contributed by JuanMtnezPineda
+* fixed bug PwlistArray
+  fix contributed by JuanMtnezPineda
 
 Changes for bugfix release 1.0.6 (November 05, 2016):
 

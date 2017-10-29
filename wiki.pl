@@ -2807,7 +2807,7 @@ sub UserIsBanned {
 }
 
 sub UserIsAdmin {
-  my (@pwlist, $userPassword);
+  my ($userPassword);
 
   return 0  if ($AdminPass eq "");
   $userPassword = &GetParam("adminpw", "");
@@ -2820,7 +2820,7 @@ sub UserIsAdmin {
 }
 
 sub UserIsEditor {
-  my (@pwlist, $userPassword);
+  my ($userPassword);
 
   return 1  if (&UserIsAdmin());             # Admin includes editor
   return 0  if ($EditPass eq "");
