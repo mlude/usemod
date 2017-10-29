@@ -4514,7 +4514,7 @@ sub DoEditLock {
 }
 
 sub DoPageLock {
-  my ($set, $fname, $id);
+  my ($set, $fname, $unsafe_id, $id);
 
   $set = &GetParam("set", 1) ? 1 : 0;
   if ($set) {
@@ -4524,12 +4524,17 @@ sub DoPageLock {
   }
   # Consider allowing page lock/unlock at editor level?
   return  if (!&UserIsAdminOrError());
-  $id = &GetParam("id", "");
-  if ($id eq "") {
+  $unsafe_id = &GetParam("id", "");
+  if ($unsafe_id eq "") {
     print '<p>', T('Missing page id to lock/unlock...');
     return;
   }
-  return  if (!&ValidIdOrDie($id));       # Consider nicer error?
+  return  if (!&ValidIdOrDie($unsafe_id));       # Consider nicer error?
+  $id = &SanitizePageName($unsafe_id);
+  if (!$id) {
+    &ReportError(Ts('Invalid Page %s', $unsafe_id));
+    return;
+  }
   $fname = &GetLockedPageFile($id);
   if ($set) {
     &WriteStringToFile($fname, "editing locked.");
