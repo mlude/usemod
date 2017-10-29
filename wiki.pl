@@ -1923,7 +1923,7 @@ sub GetBracketUrlIndex {
   my ($index, $key);
 
   # Consider plain array?
-  if ($SaveNumUrl{$id} > 0) {
+  if ($SaveNumUrl{$id} and $SaveNumUrl{$id} > 0) {
     return $SaveNumUrl{$id};
   }
   $SaveNumUrlIndex++;  # Start with 1
