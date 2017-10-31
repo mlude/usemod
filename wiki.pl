@@ -612,7 +612,7 @@ sub ReBrowsePage {
 
 sub DoRc {
   my ($rcType) = @_;   # 0 = RSS, 1 = HTML
-  my ($fileData, $rcline, $i, $daysago, $lastTs, $ts, $idOnly);
+  my ($fileData, $i, $daysago, $lastTs, $ts, $idOnly);
   my (@fullrc, $status, $oldFileData, $firstTs, $errorText, $showHTML);
   my $starttime = 0;
   my $showbar = 0;
@@ -743,8 +743,8 @@ sub DoRc {
 sub GetRc {
   my $rcType = shift;
   my @outrc = @_;
-  my ($rcline, $date, $newtop, $author, $inlist, $result);
-  my ($showedit, $link, $all, $idOnly, $headItem, $item);
+  my ($rcline, $date, $newtop, $inlist, $result);
+  my ($showedit, $all, $idOnly, $headItem, $item);
   my ($ts, $pagename, $summary, $isEdit, $host, $kind, $extraTemp);
   my ($rcchangehist, $tEdit, $tChanges, $tDiff);
   my ($headList, $pagePrefix, $historyPrefix, $diffPrefix);
@@ -1271,7 +1271,7 @@ sub ScriptLinkTitle {
 
 sub GetAuthorLink {
   my ($host, $userName, $uid) = @_;
-  my ($html, $title, $userNameShow);
+  my ($html, $userNameShow);
 
   $userNameShow = $userName;
   if ($FreeLinks) {
@@ -1898,7 +1898,7 @@ sub InterPageLink {
 
 sub StoreBracketInterPage {
   my ($id, $text, $useImage) = @_;
-  my ($site, $remotePage, $url, $index);
+  my ($site, $remotePage, $url);
 
   ($site, $remotePage) = split(/:/, $id, 2);
   $remotePage =~ s/&amp;/&/g;  # Unquote common URL HTML
@@ -1920,7 +1920,6 @@ sub StoreBracketInterPage {
 
 sub GetBracketUrlIndex {
   my ($id) = @_;
-  my ($index, $key);
 
   # Consider plain array?
   if ($SaveNumUrl{$id} and $SaveNumUrl{$id} > 0) {
@@ -2218,7 +2217,7 @@ sub WikiHeading {
 # ==== Difference markup and HTML ====
 sub GetDiffHTML {
   my ($diffType, $id, $revOld, $revNew, $newText) = @_;
-  my ($html, $diffText, $diffTextTwo, $priorName, $links, $usecomma);
+  my ($html, $diffText, $priorName, $links, $usecomma);
   my ($major, $minor, $author, $useMajor, $useMinor, $useAuthor, $cacheName);
 
   $links = "(";
@@ -2642,7 +2641,7 @@ sub OpenKeptList {
 
 sub OpenKeptRevisions {
   my ($name) = @_;  # Name of section
-  my ($fname, $data, %tempSection);
+  my (%tempSection);
 
   %KeptRevisions = ();
   &OpenKeptList();
@@ -3283,7 +3282,7 @@ sub DoOtherRequest {
 sub DoEdit {
   my ($id, $isConflict, $oldTime, $newText, $preview) = @_;
   my ($header, $editRows, $editCols, $userName, $revision, $oldText);
-  my ($summary, $isEdit, $pageTime);
+  my ($summary, $pageTime);
 
   if ($FreeLinks) {
     $id = &FreeToNormal($id);  # Take care of users like Markus Lude :-)
@@ -3432,7 +3431,7 @@ sub GetTextArea {
 }
 
 sub DoEditPrefs {
-  my ($check, $recentName, %labels);
+  my ($recentName, %labels);
 
   $recentName = $RCName;
   $recentName =~ s/_/ /g;
@@ -4008,7 +4007,7 @@ sub GetPageLinks {
 }
 
 sub DoPost {
-  my ($id, $editDiff, $old, $newAuthor, $pgtime, $oldrev, $preview, $user);
+  my ($id, $old, $newAuthor, $pgtime, $oldrev, $preview, $user);
   my $string = &GetParam("text", undef);
   my $unsafe_id = &GetParam("title", "");
   my $summary = &GetParam("summary", "");
@@ -4664,7 +4663,7 @@ sub UpdateLinksList {
 }
 
 sub BuildLinkIndex {
-  my (@pglist, $page, @links, $link, %seen);
+  my (@pglist, $page);
 
   @pglist = &AllPagesList();
   %LinkIndex = ();
@@ -4834,9 +4833,7 @@ sub SubFreeLink {
 
 sub SubWikiLink {
   my ($link, $old, $new) = @_;
-  my ($newBracket);
 
-  $newBracket = 0;
   if ($link eq $old) {
     $link = $new;
     if (!($new =~ /^$LinkPattern$/)) {
