@@ -1,5 +1,5 @@
 
-Changes for next release:
+Changes for release 1.1.0 (October 31, 2017):
 * enable warnings (perl -w)
 * fix warnings
 * enable taint mode (perl -T)
