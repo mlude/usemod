@@ -4429,7 +4429,7 @@ sub TrimRc {
   if (!$status) {
     print '<p><strong>' . Ts('Could not open %s log file', $RCName)
           . ":</strong> $RcFile<p>"
-          . T('Error was') . ":\n<pre>$!</" . "pre>\n" . '<p>';
+          . T('Error was') . ":\n<pre>$!</pre>\n<p>";
     return 0;
   }
   # Move the old stuff from rc to temp
@@ -4444,7 +4444,7 @@ sub TrimRc {
   if (!open(OUT, ">>$RcOldFile")) {
     print '<p><strong>' . Ts('Could not open %s log file', $RCName)
           . ":</strong> $RcOldFile<p>"
-          . T('Error was') . ":\n<pre>$!</" . "pre>\n" . '<p>';
+          . T('Error was') . ":\n<pre>$!</pre>\n<p>";
     return 0;
   }
   print OUT  join("\n", @temp) . "\n";
