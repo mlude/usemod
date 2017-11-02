@@ -55,7 +55,7 @@ use vars qw(@RcDays @HtmlPairs @HtmlSingle
   @IsbnNames @IsbnPre @IsbnPost $EmailFile $FavIcon $RssDays $UserHeader
   $UserBody $StartUID $ParseParas $AuthorFooter $UseUpload $AllUpload
   $UploadDir $UploadUrl $LimitFileUrl $MaintTrimRc $SearchButton 
-  $EditNameLink $UseMetaWiki @ImageSites $BracketImg );
+  $EditNameLink $UseMetaWiki @ImageSites $BracketImg $UseEditHash $Salt );
 # Note: $NotifyDefault is kept because it was a config variable in 0.90
 # Other global variables:
 use vars qw(%Page %Section %Text %InterSite %SaveUrl %SaveNumUrl
@@ -114,6 +114,8 @@ $StartUID    = 1001;            # Starting number for user IDs
 $UploadDir   = '';              # Full path (like /foo/www/uploads) for files
 $UploadUrl   = '';              # Full URL (like http://foo.com/uploads)
 @ImageSites  = qw();            # Url prefixes of good image sites: ()=all
+$Salt        = 'pepper';        # Salt for generating an EditHash,
+                                # please choose something other here!
 
 # Major options:
 $UseSubpage  = 1;           # 1 = use subpages,       0 = do not use subpages
@@ -134,6 +136,7 @@ $ReplaceFile = 'ReplaceFile';   # 0 = disable, 'PageName' = indicator tag
 $TableSyntax = 1;           # 1 = wiki syntax tables, 0 = no table syntax
 $NewFS       = 0;           # 1 = new multibyte $FS,  0 = old $FS
 $UseUpload   = 0;           # 1 = allow uploads,      0 = no uploads
+$UseEditHash = 0;           # 1 = use EditHash,       0 = no EditHash
 
 # Minor options:
 $LogoLeft     = 0;      # 1 = logo on left,       0 = logo on right
@@ -3314,10 +3317,58 @@ sub DoOtherRequest {
   &ReportError(T('Invalid URL.'));
 }
 
+sub GetMainNet {
+  my ($ip) = @_;
+  my (@nums);
+
+  @nums = split(/\./, $ip);
+  return $nums[0] * 1000 + $nums[1];
+}
+
+sub GetHash {
+  my ($form, $salt, $id, $ts) = @_;
+  my ($ip, $data, $cksum, $hash);
+  my $post = "(Post)";
+
+  if (!$salt) {
+    $post = "";
+    $salt = join('', ('.', '/', 0..9, 'A'..'Z', 'a'..'z')[rand 64, rand 64]);
+  }
+  $ip = GetIP() || '127.0.0.1';
+  $data = $form . $id . $ts . $ip . $Salt;
+  eval 'use Digest::SHA; $cksum = $salt . Digest::SHA->sha256_hex($data . $salt);';
+  $hash = $form . "-" . &GetMainNet($ip) . "-" . $cksum;
+  return $hash;
+}
+
+sub CheckHash {
+  my ($form, $p_hash, $id, $ts) = @_;
+  my ($p_form, $p_salt, $hash, $ip, $num);
+
+  $ip = GetIP() || '127.0.0.1';
+  if ($p_hash =~ /^([a-z]+)-(\d+)-(..)/) {
+    ($p_form, $num, $p_salt) = ($1, $2, $3);
+  } else {
+    return 0; # invalid format
+  }
+  if ($p_form ne $form) {
+    return 0;
+  }
+  my $net = &GetMainNet($ip);
+  if ($num != $net) {
+    return 0;
+  }
+  $hash = &GetHash($form, $p_salt, $id, $ts);
+  if ($p_hash eq $hash) {
+    return 1;
+  }
+  return 0;
+}
+
 sub DoEdit {
   my ($id, $isConflict, $oldTime, $newText, $preview) = @_;
   my ($header, $editRows, $editCols, $userName, $revision, $oldText);
-  my ($summary, $pageTime);
+  my ($summary, $pageTime, $hash);
 
   if ($FreeLinks) {
     $id = &FreeToNormal($id);  # Take care of users like Markus Lude :-)
@@ -3349,7 +3400,7 @@ sub DoEdit {
       # Consider better solution like error message?
     } else {
       &OpenKeptRevision($revision);
-      $header = Ts('Editing revision %s of ', $revision ) . $id;
+      $header = Ts('Editing revision %s of ', $revision) . $id;
     }
   }
   $oldText = $Text{'text'};
@@ -3388,6 +3439,10 @@ sub DoEdit {
         &GetHiddenValue("oldconflict", $isConflict), "\n";
   if ($revision ne "") {
     print &GetHiddenValue("revision", $revision), "\n";
+  }
+  if ($UseEditHash) {
+    $hash = &GetHash("edit", "", $id, $pageTime);
+    print &GetHiddenValue("hash", $hash), "\n";
   }
   print &GetTextArea('text', $oldText, $editRows, $editCols);
   $summary = &GetParam("summary", "*");

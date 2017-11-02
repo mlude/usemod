@@ -43,6 +43,8 @@ $StartUID    = 1001;            # Starting number for user IDs
 $UploadDir   = '';              # Full path (like /foo/www/uploads) for files
 $UploadUrl   = '';              # Full URL (like http://foo.com/uploads)
 @ImageSites  = qw();            # Url prefixes of good image sites: ()=all
+$Salt        = 'pepper';        # Salt for generating an EditHash,
+                                # please choose something other here!
 
 # Major options:
 $UseSubpage  = 1;           # 1 = use subpages,       0 = do not use subpages
@@ -63,6 +65,7 @@ $ReplaceFile = 'ReplaceFile';   # 0 = disable, 'PageName' = indicator tag
 $TableSyntax = 1;           # 1 = wiki syntax tables, 0 = no table syntax
 $NewFS       = 0;           # 1 = new multibyte $FS,  0 = old $FS
 $UseUpload   = 0;           # 1 = allow uploads,      0 = no uploads
+$UseEditHash = 0;           # 1 = use EditHash,       0 = no EditHash
 
 # Minor options:
 $LogoLeft     = 0;      # 1 = logo on left,       0 = logo on right
