@@ -2562,12 +2562,13 @@ sub UpdatePageVersion {
 }
 
 sub KeepFileName {
-  return $KeepDir . "/" . &GetPageDirectory($OpenPageName)
-         . "/$OpenPageName.kp";
+  my ($name) = @_;
+
+  return $KeepDir . "/" . &GetPageDirectory($name) . "/$name.kp";
 }
 
 sub SaveKeepSection {
-  my $file = &KeepFileName();
+  my $file = &KeepFileName($OpenPageName);
   my $data;
 
   return  if ($Section{'revision'} < 1);  # Don't keep "empty" revision
@@ -2582,7 +2583,7 @@ sub ExpireKeepFile {
   my ($anyExpire, $anyKeep, $expire, %keepFlag, $sectName, $sectRev);
   my ($oldMajor, $oldAuthor);
 
-  $fname = &KeepFileName();
+  $fname = &KeepFileName($OpenPageName);
   return  if (!(-f $fname));
   $data = &ReadFileOrDie($fname);
   @kplist = split(/$FS1/, $data, -1);  # -1 keeps trailing null fields
@@ -2645,7 +2646,7 @@ sub OpenKeptList {
   my ($fname, $data);
 
   @KeptList = ();
-  $fname = &KeepFileName();
+  $fname = &KeepFileName($OpenPageName);
   return  if (!(-f $fname));
   $data = &ReadFileOrDie($fname);
   @KeptList = split(/$FS1/, $data, -1);  # -1 keeps trailing null fields
