@@ -6,6 +6,7 @@ Changes for next release:
   suggested by UngarPeter
 * fixed bug CallingKeepFileName
   with suggestion from JuanMtnezPineda
+* show IP address instead of faked DNS entry on RecentChanges
 
 Changes for release 1.1.0 (October 31, 2017):
 * enable warnings (perl -w)

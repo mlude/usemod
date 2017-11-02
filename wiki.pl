@@ -2,6 +2,8 @@
 # UseModWiki version 1.1.0 (October 31, 2017)
 # Copyright (C) 2000-2003 Clifford A. Adams  <caadams@usemod.com>
 # Copyright (C) 2002-2003 Sunir Shah  <sunir@sunir.org>
+# with some changes from  Markus Lude <markus.lude@gmx.de>
+#
 # Based on the GPLed AtisWiki 0.3  (C) 1998 Markus Denker
 #    <marcus@ira.uka.de>
 # ...which was based on
@@ -3156,18 +3158,38 @@ sub GetHiddenValue {
   return $q->hidden($name);
 }
 
+sub GetIP {
+  return $ENV{REMOTE_ADDR};
+}
+
 sub GetRemoteHost {
   my ($doMask) = @_;
-  my ($rhost, $iaddr);
+  my ($rhost, $ip, $iaddr);
 
   $rhost = $ENV{REMOTE_HOST} || '';
   if ($UseLookup && ($rhost eq "")) {
+    $ip = GetIP();
     # Catch errors (including bad input) without aborting the script
-    eval 'use Socket; $iaddr = inet_aton($ENV{REMOTE_ADDR});'
-         . '$rhost = gethostbyaddr($iaddr, AF_INET)';
+    eval 'use Socket; $iaddr = inet_aton($ip);'
+         . '$rhost = gethostbyaddr($iaddr, AF_INET) if $iaddr';
+    $rhost ||= "";
+    my $rhost_org = $rhost;
+    $rhost =~ s/[^-.\w]//g;
+    if ($rhost) {
+      my $raddr;
+      eval 'use Socket; $raddr = scalar gethostbyname($rhost);'
+           . '$raddr = $raddr ? inet_ntoa($raddr) : ""';
+      $raddr ||= "";
+      my $addr = GetIP();
+      if ($raddr ne $addr) {
+        $rhost_org =~ s/[^-.\w]/?/g;
+        $raddr =~ s/[^.\d]/?/g;
+        $rhost = $addr;
+      }
+    }
   }
   if ($rhost eq "") {
-    $rhost = $ENV{REMOTE_ADDR};
+    $rhost = GetIP();
   }
   $rhost = &GetMaskedHost($rhost)  if ($doMask);
   return $rhost;
