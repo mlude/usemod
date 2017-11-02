@@ -2635,7 +2635,7 @@ sub ExpireKeepFile {
     return;
   }
   return  if (!$anyExpire);  # No sections expired
-  open (OUT, ">$fname") or die (Ts('cant write %s', $fname) . ": $!");
+  open(OUT, ">$fname") or die (Ts('cant write %s', $fname) . ": $!");
   foreach (@kplist) {
     %tempSection = split(/$FS2/, $_, -1);
     $sectName = $tempSection{'name'};
@@ -2960,7 +2960,7 @@ sub ReadFileOrDie {
 sub WriteStringToFile {
   my ($file, $string) = @_;
 
-  open (OUT, ">$file") or die(Ts('cant write %s', $file) . ": $!");
+  open(OUT, ">$file") or die(Ts('cant write %s', $file) . ": $!");
   print OUT  $string;
   close(OUT);
 }
@@ -2968,7 +2968,7 @@ sub WriteStringToFile {
 sub AppendStringToFile {
   my ($file, $string) = @_;
 
-  open (OUT, ">>$file") or die(Ts('cant write %s', $file) . ": $!");
+  open(OUT, ">>$file") or die(Ts('cant write %s', $file) . ": $!");
   print OUT  $string;
   close(OUT);
 }
@@ -4052,7 +4052,7 @@ sub GetFullLinkList {
     if ($sort) {
       @links = sort(@links);
     }
-    unshift (@links, $name);
+    unshift(@links, $name);
     if ($empty || ($#links > 0)) {  # If only one item, list is empty.
       push(@found, join(' ', @links));
     }
@@ -4262,7 +4262,7 @@ sub SendEmail {
   #    -odq : send mail to queue (i.e. later when convenient)
   #    -oi  : do not wait for "." line to exit
   #    -t   : headers determine recipient.
-  open (SENDMAIL, "| $SendMail -oi -t ") or die "Can't send email: $!\n";
+  open(SENDMAIL, "| $SendMail -oi -t ") or die "Can't send email: $!\n";
   print SENDMAIL <<"EOF";
 From: $from
 To: $to
@@ -4423,7 +4423,7 @@ sub WriteRcLog {
 sub WriteDiff {
   my ($id, $editTime, $diffString) = @_;
 
-  open (OUT, ">>$DataDir/diff_log") or die(T('can not write diff_log'));
+  open(OUT, ">>$DataDir/diff_log") or die(T('can not write diff_log'));
   print OUT  "------\n" . $id . "|" . $editTime . "\n";
   print OUT  $diffString;
   close(OUT);
@@ -4452,7 +4452,7 @@ sub ProcessVetos {
        {
          my $string = $1;
          $string =~ s/\r\n/\n/gms;
-         open (OUT, ">$fname") or return 0;
+         open(OUT, ">$fname") or return 0;
          print OUT $string;
          close OUT;
          return (0, T('(replaced)'));
@@ -4964,7 +4964,7 @@ sub RenameKeepText {
     }
   }
   return  if (!$changed);  # No sections changed
-  open (OUT, ">$fname") or return;
+  open(OUT, ">$fname") or return;
   foreach (@kplist) {
     %tempSection = split(/$FS2/, $_, -1);
     $sectName = $tempSection{'name'};
