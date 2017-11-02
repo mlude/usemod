@@ -2,6 +2,8 @@
 Changes for next release:
 * switch DTD to HTML 4.0.1 Transitional
 * cleanup generated HTML code
+* added CSS class wikibody to include all except wikiheader and wikifooter
+  suggested by UngarPeter
 
 Changes for release 1.1.0 (October 31, 2017):
 * enable warnings (perl -w)

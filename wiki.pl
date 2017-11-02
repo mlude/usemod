@@ -1335,6 +1335,7 @@ sub GetHeader {
     $result .= &GetGotoBar($id) . '<hr class="wikilineheader">';
   }
   $result .= "</div>\n";
+  $result .= qq(<div class="wikibody">\n);
   return $result;
 }
 
@@ -1413,10 +1414,12 @@ sub GetFooterText {
   my ($id, $rev) = @_;
   my $result;
 
+  $result = "</div>\n"; # end wikibody
   if (&GetParam('embed', $EmbedWiki)) {
-    return $q->end_html;
+    $result .= $q->end_html;
+    return $result;
   }
-  $result = '<div class="wikifooter">';
+  $result .= '<div class="wikifooter">';
   $result .= qq(<hr class="wikilinefooter">\n);
   $result .= &GetFormStart();
   $result .= &GetGotoBar($id);
@@ -1481,7 +1484,12 @@ sub GetFooterText {
 sub GetCommonFooter {
   my ($html);
 
-  $html = '<div class="wikifooter"><hr class="wikilinefooter">'
+  $html = "</div>\n"; # end wikibody
+  if (&GetParam('embed', $EmbedWiki)) {
+    $html .= $q->end_html;
+    return $html;
+  }
+  $html .= '<div class="wikifooter"><hr class="wikilinefooter">'
           . &GetFormStart() . &GetGotoBar('')
           . &GetSearchForm() . $q->end_form;
   if ($FooterNote ne '') {
@@ -3411,6 +3419,7 @@ sub DoEdit {
     print "</div>\n";
   }
   print $q->end_form;
+  print "</div>\n"; # end wikibody
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class="wikifooter">';
     print qq(<hr class="wikilinefooter">\n);
