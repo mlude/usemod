@@ -1803,13 +1803,16 @@ sub WikiLinesToHtml {
       $depth = 0;
     }
     while (@htmlStack > $depth) {   # Close tags as needed
-      $pageHtml .=  "</" . pop(@htmlStack) . ">\n";
+      $oldCode = pop(@htmlStack);
+      $pageHtml .= "</dd>\n" if ($oldCode eq "dl");
+      $pageHtml .= "</$oldCode>\n";
     }
     if ($depth > 0) {
       $depth = $IndentLimit  if ($depth > $IndentLimit);
       if (@htmlStack) {  # Non-empty stack
         $oldCode = pop(@htmlStack);
         if ($oldCode ne $code) {
+          $pageHtml .= "</dd>\n" if ($oldCode eq "dl");
           $pageHtml .= "</$oldCode><$code>\n";
         }
         push(@htmlStack, $code);
@@ -1825,7 +1828,9 @@ sub WikiLinesToHtml {
     $pageHtml .= &CommonMarkup($_, 1, 2);  # Line-oriented common markup
   }
   while (@htmlStack > 0) {       # Clear stack
-    $pageHtml .=  "</" . pop(@htmlStack) . ">\n";
+    $oldCode = pop(@htmlStack);
+    $pageHtml .= "</dd>\n" if ($oldCode eq "dl");
+    $pageHtml .= "</$oldCode>\n";
   }
   return $pageHtml;
 }
