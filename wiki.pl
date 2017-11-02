@@ -345,7 +345,7 @@ sub DoCacheBrowse {
   $idFile = &GetHtmlCacheFile($query);
   if (-f $idFile) {
     local $/ = undef;   # Read complete files
-    open(INFILE, "<$idFile") or return 0;
+    open(INFILE, "<", $idFile) or return 0;
     $text = <INFILE>;
     close INFILE;
     print $text;
@@ -2635,7 +2635,7 @@ sub ExpireKeepFile {
     return;
   }
   return  if (!$anyExpire);  # No sections expired
-  open(OUT, ">$fname") or die (Ts('cant write %s', $fname) . ": $!");
+  open(OUT, ">", $fname) or die (Ts('cant write %s', $fname) . ": $!");
   foreach (@kplist) {
     %tempSection = split(/$FS2/, $_, -1);
     $sectName = $tempSection{'name'};
@@ -2938,7 +2938,7 @@ sub ReadFile {
   my ($data);
   local $/ = undef;   # Read complete files
 
-  if (open(IN, "<$fileName")) {
+  if (open(IN, "<", $fileName)) {
     $data=<IN>;
     close IN;
     return (1, $data);
@@ -2960,7 +2960,7 @@ sub ReadFileOrDie {
 sub WriteStringToFile {
   my ($file, $string) = @_;
 
-  open(OUT, ">$file") or die(Ts('cant write %s', $file) . ": $!");
+  open(OUT, ">", $file) or die(Ts('cant write %s', $file) . ": $!");
   print OUT  $string;
   close(OUT);
 }
@@ -2968,7 +2968,7 @@ sub WriteStringToFile {
 sub AppendStringToFile {
   my ($file, $string) = @_;
 
-  open(OUT, ">>$file") or die(Ts('cant write %s', $file) . ": $!");
+  open(OUT, ">>", $file) or die(Ts('cant write %s', $file) . ": $!");
   print OUT  $string;
   close(OUT);
 }
@@ -3739,7 +3739,7 @@ sub UpdateEmailList {
   if (my $new_email = $UserData{'email'} = &GetParam("p_email", "")) {
     my $notify = $UserData{'notify'};
     if (-f $EmailFile) {
-      open(NOTIFY, $EmailFile)
+      open(NOTIFY, "<", $EmailFile)
         or die(Ts('Could not read from %s:', $EmailFile) . " $!\n");
       @old_emails = <NOTIFY>;
       close(NOTIFY);
@@ -3749,7 +3749,7 @@ sub UpdateEmailList {
     my $already_in_list = grep /$new_email/, @old_emails;
     if ($notify and (not $already_in_list)) {
       &RequestLock() or die(T('Could not get mail lock'));
-      if (!open(NOTIFY, ">>$EmailFile")) {
+      if (!open(NOTIFY, ">>", $EmailFile)) {
         &ReleaseLock();  # Don't leave hangling locks
         die(Ts('Could not append to %s:', $EmailFile) . " $!\n");
       }
@@ -3759,7 +3759,7 @@ sub UpdateEmailList {
     }
     elsif ((not $notify) and $already_in_list) {
       &RequestLock() or die(T('Could not get mail lock'));
-      if (!open(NOTIFY, ">$EmailFile")) {
+      if (!open(NOTIFY, ">", $EmailFile)) {
         &ReleaseLock();
         die(Ts('Could not overwrite %s:', "$EmailFile") . " $!\n");
       }
@@ -4262,7 +4262,7 @@ sub SendEmail {
   #    -odq : send mail to queue (i.e. later when convenient)
   #    -oi  : do not wait for "." line to exit
   #    -t   : headers determine recipient.
-  open(SENDMAIL, "| $SendMail -oi -t ") or die "Can't send email: $!\n";
+  open(SENDMAIL, "|-", "$SendMail -oi -t") or die "Can't send email: $!\n";
   print SENDMAIL <<"EOF";
 From: $from
 To: $to
@@ -4284,7 +4284,7 @@ sub EmailNotify {
     }
     my $address;
     return  if (!-f $EmailFile);  # No notifications yet
-    open(EMAIL, $EmailFile)
+    open(EMAIL, "<", $EmailFile)
       or die "Can't open $EmailFile: $!\n";
     $address = join ",", <EMAIL>;
     $address =~ s/\n//g;
@@ -4413,7 +4413,7 @@ sub WriteRcLog {
   # The two fields at the end of a line are kind and extension-hash
   my $rc_line = join($FS3, $editTime, $id, $summary,
                      $isEdit, $rhost, "0", $extraTemp);
-  if (!open(OUT, ">>$RcFile")) {
+  if (!open(OUT, ">>", $RcFile)) {
     die(Ts('%s log error:', $RCName) . " $!");
   }
   print OUT  $rc_line . "\n";
@@ -4423,7 +4423,7 @@ sub WriteRcLog {
 sub WriteDiff {
   my ($id, $editTime, $diffString) = @_;
 
-  open(OUT, ">>$DataDir/diff_log") or die(T('can not write diff_log'));
+  open(OUT, ">>", "$DataDir/diff_log") or die(T('can not write diff_log'));
   print OUT  "------\n" . $id . "|" . $editTime . "\n";
   print OUT  $diffString;
   close(OUT);
@@ -4452,7 +4452,7 @@ sub ProcessVetos {
        {
          my $string = $1;
          $string =~ s/\r\n/\n/gms;
-         open(OUT, ">$fname") or return 0;
+         open(OUT, ">", $fname) or return 0;
          print OUT $string;
          close OUT;
          return (0, T('(replaced)'));
@@ -4533,7 +4533,7 @@ sub TrimRc {
   return 1  if ($i < 1);  # No lines to move from new to old
   @temp = splice(@rc, 0, $i);
   # Write new files and backups
-  if (!open(OUT, ">>$RcOldFile")) {
+  if (!open(OUT, ">>", $RcOldFile)) {
     print '<p><strong>' . Ts('Could not open %s log file', $RCName)
           . ":</strong> $RcOldFile<p>"
           . T('Error was') . ":\n<pre>$!</pre>\n<p>";
@@ -4964,7 +4964,7 @@ sub RenameKeepText {
     }
   }
   return  if (!$changed);  # No sections changed
-  open(OUT, ">$fname") or return;
+  open(OUT, ">", $fname) or return;
   foreach (@kplist) {
     %tempSection = split(/$FS2/, $_, -1);
     $sectName = $tempSection{'name'};
@@ -5164,7 +5164,7 @@ sub SaveUpload {
   $filename = $q->param('file');
   $filename =~ s/.*[\/\\](.*)/$1/;  # Only name after last \ or /
   $uploadFilehandle = $q->upload('file');
-  open UPLOADFILE, ">$UploadDir$filename";
+  open(UPLOADFILE, ">", "$UploadDir$filename");
   binmode UPLOADFILE;
   while (<$uploadFilehandle>) { print UPLOADFILE; }
   close UPLOADFILE;
