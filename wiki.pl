@@ -1012,9 +1012,9 @@ sub DoHistory {
   if ($UseDiff) {
     print <<EOF ;
       <form action="$ScriptName" method="get">
-          <input type="hidden" name="action" value="browse"/>
-          <input type="hidden" name="diff" value="1"/>
-          <input type="hidden" name="id" value="$id"/>
+          <input type="hidden" name="action" value="browse">
+          <input type="hidden" name="diff" value="1">
+          <input type="hidden" name="id" value="$id">
       <table border="0" width="100%"><tr>
 EOF
   }
@@ -1028,7 +1028,7 @@ EOF
   if ($UseDiff) {
     my $label = T('Compare');
     print "<tr><td align='center'><input type='submit' "
-          . "value='$label'/>&nbsp;&nbsp;</td></table></form>\n";
+          . "value='$label'>&nbsp;&nbsp;</td></table></form>\n";
     print "<hr class=wikilinediff>\n";
     print &GetDiffHTML(&GetParam('defaultdiff', 1), $id, '', '', $newText);
   }
@@ -1076,8 +1076,8 @@ sub GetHistoryLine {
     $c1 = 'checked="checked"' if 1 == $row;
     $c2 = 'checked="checked"' if 0 == $row;
     $html .= "<tr><td align='center'><input type='radio' "
-             . "name='diffrevision' value='$rev' $c1/> ";
-    $html .= "<input type='radio' name='revision' value='$rev' $c2/></td><td>";
+             . "name='diffrevision' value='$rev' $c1> ";
+    $html .= "<input type='radio' name='revision' value='$rev' $c2></td><td>";
   }
   if (0 == $row) { # current revision
     $html .= &GetPageLinkText($id, Ts('Revision %s', $rev)) . ' ';
@@ -1376,7 +1376,7 @@ sub GetHtmlHeader {
   if ($MetaKeywords) {
       my $keywords = $OpenPageName;
       $keywords =~ s/([a-z])([A-Z])/$1, $2/g;
-      $html .= "<meta name='keywords' content='$keywords'/>\n" if $keywords;
+      $html .= "<meta name='keywords' content='$keywords'>\n" if $keywords;
   }
   # we don't want robots indexing our history or other admin pages
   my $action = lc(&GetParam('action', ''));
@@ -5053,7 +5053,7 @@ sub DoUpload {
   print '</p><br>';
   print '<form method="post" action="' . $ScriptName
         . '" enctype="multipart/form-data">';
-  print '<input type="hidden" name="upload" value="1" />';
+  print '<input type="hidden" name="upload" value="1">';
   print T('File to Upload:'), ' <input type="file" name="file"><br><br>';
   print '<input type="submit" name="Submit" value="', T('Upload'), '">';
   print '</form>';
