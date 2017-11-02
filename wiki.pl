@@ -4785,7 +4785,7 @@ sub DeletePage {
   }
   $fname = &GetPageFile($page);
   unlink($fname)  if (-f $fname);
-  $fname = $KeepDir . "/" . &GetPageDirectory($page) .  "/$page.kp";
+  $fname = &KeepFileName($page);
   unlink($fname)  if (-f $fname);
   unlink($IndexFile)  if ($UseIndex);
   &EditRecentChanges(1, $page, "")  if ($doRC);  # Delete page
@@ -4863,7 +4863,7 @@ sub RenameKeepText {
   my ($fname, $status, $data, @kplist, %tempSection, $changed);
   my ($sectName, $newText);
 
-  $fname = $KeepDir . "/" . &GetPageDirectory($page) .  "/$page.kp";
+  $fname = &KeepFileName($page);
   return  if (!(-f $fname));
   ($status, $data) = &ReadFile($fname);
   return  if (!$status);
@@ -4995,8 +4995,8 @@ sub RenamePage {
   &CreatePageDir($PageDir, $new);  # It might not exist yet
   rename($oldfname, $newfname);
   &CreatePageDir($KeepDir, $new);
-  $oldkeep = $KeepDir . "/" . &GetPageDirectory($old) .  "/$old.kp";
-  $newkeep = $KeepDir . "/" . &GetPageDirectory($new) .  "/$new.kp";
+  $oldkeep = &KeepFileName($old);
+  $newkeep = &KeepFileName($new);
   unlink($newkeep)  if (-f $newkeep);  # Clean up if needed.
   rename($oldkeep,  $newkeep);
   unlink($IndexFile)  if ($UseIndex);
