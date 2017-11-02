@@ -1011,7 +1011,7 @@ sub DoHistory {
   $canEdit = &UserCanEdit($id)  if ($HistoryEdit);
   if ($UseDiff) {
     print <<EOF ;
-      <form action="$ScriptName" method="get">
+      <form method="get" action="$ScriptName">
           <input type="hidden" name="action" value="browse">
           <input type="hidden" name="diff" value="1">
           <input type="hidden" name="id" value="$id">
@@ -5056,12 +5056,12 @@ sub DoUpload {
   print '<p>' . Ts('The current upload size limit is %s.', $MaxPost) . ' '
         . Ts('Change the %s variable to increase this limit.', '$MaxPost');
   print '</p><br>';
-  print '<form method="post" action="' . $ScriptName
-        . '" enctype="multipart/form-data">';
+  print qq(<form method="post" action="$ScriptName")
+        . ' enctype="multipart/form-data">';
   print '<input type="hidden" name="upload" value="1">';
   print T('File to Upload:'), ' <input type="file" name="file"><br><br>';
   print '<input type="submit" name="Submit" value="', T('Upload'), '">';
-  print '</form>';
+  print "</form>\n";
   print &GetCommonFooter(); 
 }
 
