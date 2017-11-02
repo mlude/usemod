@@ -583,13 +583,13 @@ sub BrowsePage {
   }
   $fullHtml .= '<div class=wikitext>';
   $fullHtml .= &WikiToHTML($Text{'text'});
-  $fullHtml .= '</div>';
+  $fullHtml .= "</div>\n";
   if (($id eq $RCName) || (T($RCName) eq $id) || (T($id) eq $RCName)) {
     print $fullHtml;
     print "<hr class=wikilinerc>\n";
     print '<div class=wikirc>';
     &DoRc(1);
-    print '</div>';
+    print "</div>\n";
     print &GetFooterText($id, $goodRevision);
     return;
   }
@@ -1334,7 +1334,7 @@ sub GetHeader {
   if (&GetParam("toplinkbar", 1)) {
     $result .= &GetGotoBar($id) . "<hr class=wikilineheader>";
   }
-  $result .= '</div>';
+  $result .= "</div>\n";
   return $result;
 }
 
@@ -1473,7 +1473,7 @@ sub GetFooterText {
   if ($FooterNote ne '') {
     $result .= T($FooterNote);
   }
-  $result .= '</div>';
+  $result .= "</div>\n";
   $result .= &GetMinimumFooter();
   return $result;
 }
@@ -1487,7 +1487,7 @@ sub GetCommonFooter {
   if ($FooterNote ne '') {
     $html .= T($FooterNote);
   }
-  $html .= '</div>' . $q->end_html;
+  $html .= "</div>\n" . $q->end_html;
   return $html;
 }
 
@@ -3403,7 +3403,7 @@ sub DoEdit {
     $MainPage =~ s|/.*||;  # Only the main page name (remove subpage)
     print &WikiToHTML($oldText) . "<hr class=wikilinepreview>\n";
     print "<h2>", T('Preview only, not yet saved'), "</h2>\n";
-    print '</div>';
+    print "</div>\n";
   }
   print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
@@ -3411,7 +3411,7 @@ sub DoEdit {
     print "<hr class=wikilinefooter>\n";
     print &GetHistoryLink($id, T('View other revisions')) . "<br>\n";
     print &GetGotoBar($id);
-    print '</div>';
+    print "</div>\n";
   }
   print &GetMinimumFooter();
 }
@@ -3512,12 +3512,12 @@ sub DoEditPrefs {
         &GetFormText('stylesheet', "", 30, 150);
   print '<br>', $q->submit(-name=>'Save', -value=>T('Save')), "\n";
   print $q->end_form;
-  print '</div>';
+  print "</div>\n";
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
     print &GetGotoBar('');
-    print '</div>';
+    print "</div>\n";
   }
   print &GetMinimumFooter();
 }
@@ -3740,7 +3740,7 @@ sub DoEnterLogin {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
     print &GetGotoBar('');
-    print '</div>';
+    print "</div>\n";
   }
   print &GetMinimumFooter();
 }
@@ -3775,7 +3775,7 @@ sub DoLogin {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
     print &GetGotoBar('');
-    print '</div>';
+    print "</div>\n";
   }
   print &GetMinimumFooter();
 }
@@ -4575,7 +4575,7 @@ sub DoEditBanned {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
     print &GetGotoBar('');
-    print '</div>';
+    print "</div>\n";
   }
   print &GetMinimumFooter();
 }
@@ -4631,7 +4631,7 @@ sub DoEditLinks {
     print '<div class=wikifooter>';
     print "<hr class=wikilinefooter>\n";
     print &GetGotoBar('');
-    print '</div>';
+    print "</div>\n";
   }
   print &GetMinimumFooter();
 }
