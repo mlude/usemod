@@ -1366,8 +1366,7 @@ sub GetHtmlHeader {
   my ($title, $id) = @_;
   my ($dtd, $html, $bodyExtra, $stylesheet);
 
-  $html = '';
-  $dtd = '-//IETF//DTD HTML//EN';
+  $dtd = '-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd';
   $html = qq(<!DOCTYPE HTML PUBLIC "$dtd">\n);
   $title = $q->escapeHTML($title);
   $html .= "<HTML><HEAD><TITLE>$title</TITLE>\n";
