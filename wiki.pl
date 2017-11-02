@@ -1776,10 +1776,10 @@ sub WikiLinesToHtml {
     $codeAttributes = '';
     $TableMode = 0;
     $_ .= "\n";
-    if (s/^(\;+)([^:]+\:?)\:/<dt>$2<dd>/) {
+    if (s/^(\;+)([^:]+\:?)\:/<dt>$2<\/dt><dd>/) {
       $code = "dl";
       $depth = length $1;
-    } elsif (s/^(\:+)/<dt><dd>/) {
+    } elsif (s/^(\:+)/<dt><\/dt><dd>/) {
       $code = "dl";
       $depth = length $1;
     } elsif (s/^(\*+)/<li>/) {
