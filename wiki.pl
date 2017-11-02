@@ -80,7 +80,7 @@ $ScriptTZ    = "";              # Local time zone ("" means do not print)
 $RcDefault   = 30;              # Default number of RecentChanges days
 @RcDays      = qw(1 3 7 30 90); # Days for links on RecentChanges
 $KeepDays    = 14;              # Days to keep old revisions
-$SiteBase    = "";              # Full URL for <BASE> header
+$SiteBase    = "";              # Full URL for <base> header
 $FullUrl     = "";              # Set if the auto-detected URL is wrong
 $RedirType   = 1;               # 1 = CGI.pm, 2 = script, 3 = no redirect
 $AdminPass   = "";              # Set to non-blank to enable password(s)
@@ -107,7 +107,7 @@ $DiffColor2  = '#cfffcf';       # Background color of new/added text
 $FavIcon     = '';              # URL of bookmark/favorites icon, or ''
 $RssDays     = 7;               # Default number of days in RSS feed
 $UserHeader  = '';              # Optional HTML header additional content
-$UserBody    = '';              # Optional <BODY> tag additional content
+$UserBody    = '';              # Optional <body> tag additional content
 $StartUID    = 1001;            # Starting number for user IDs
 $UploadDir   = '';              # Full path (like /foo/www/uploads) for files
 $UploadUrl   = '';              # Full URL (like http://foo.com/uploads)
@@ -117,7 +117,7 @@ $UploadUrl   = '';              # Full URL (like http://foo.com/uploads)
 $UseSubpage  = 1;           # 1 = use subpages,       0 = do not use subpages
 $UseCache    = 0;           # 1 = cache HTML pages,   0 = generate every page
 $EditAllowed = 1;           # 1 = editing allowed,    0 = read-only
-$RawHtml     = 0;           # 1 = allow <HTML> tag,   0 = no raw HTML in pages
+$RawHtml     = 0;           # 1 = allow <html> tag,   0 = no raw HTML in pages
 $HtmlTags    = 0;           # 1 = "unsafe" HTML tags, 0 = only minimal tags
 $UseDiff     = 1;           # 1 = use diff features,  0 = do not use diff
 $FreeLinks   = 1;           # 1 = use [[word]] links, 0 = LinkPattern only
@@ -804,12 +804,12 @@ sub GetRc {
       if (1 == $rcType) {  # HTML
         # add date, properly closing lists first
         if ($inlist) {
-          $result .= "</UL>\n";
+          $result .= "</ul>\n";
           $inlist = 0;
         }
         $result .= "<p><strong>" . $date . "</strong></p>\n";
         if (!$inlist) {
-          $result .= "<UL>\n";
+          $result .= "<ul>\n";
           $inlist = 1;
         }
       }
@@ -829,7 +829,7 @@ sub GetRc {
     }
   }
   if (1 == $rcType) {
-    $result .= "</UL>\n"  if ($inlist);  # Close final tag
+    $result .= "</ul>\n"  if ($inlist);  # Close final tag
   }
   return ($headList, $result);  # Just ignore headList for HTML
 }
@@ -1011,7 +1011,7 @@ sub DoHistory {
   $canEdit = &UserCanEdit($id)  if ($HistoryEdit);
   if ($UseDiff) {
     print <<EOF ;
-      <form action="$ScriptName" METHOD="GET">
+      <form action="$ScriptName" method="get">
           <input type="hidden" name="action" value="browse"/>
           <input type="hidden" name="diff" value="1"/>
           <input type="hidden" name="id" value="$id"/>
@@ -1367,24 +1367,24 @@ sub GetHtmlHeader {
   my ($dtd, $html, $bodyExtra, $stylesheet);
 
   $dtd = '-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd';
-  $html = qq(<!DOCTYPE HTML PUBLIC "$dtd">\n);
+  $html = qq(<!DOCTYPE html PUBLIC "$dtd">\n);
   $title = $q->escapeHTML($title);
-  $html .= "<HTML><HEAD><TITLE>$title</TITLE>\n";
+  $html .= "<html><head><title>$title</title>\n";
   if ($FavIcon ne '') {
-    $html .= '<LINK REL="SHORTCUT ICON" HREF="' . $FavIcon . '">' 
+    $html .= '<link rel="shortcut icon" href="' . $FavIcon . '">' 
   }
   if ($MetaKeywords) {
       my $keywords = $OpenPageName;
       $keywords =~ s/([a-z])([A-Z])/$1, $2/g;
-      $html .= "<META NAME='KEYWORDS' CONTENT='$keywords'/>\n" if $keywords;
+      $html .= "<meta name='keywords' content='$keywords'/>\n" if $keywords;
   }
   # we don't want robots indexing our history or other admin pages
   my $action = lc(&GetParam('action', ''));
   unless (!$action or $action eq "rc" or $action eq "index") {
-    $html .= "<META NAME='robots' CONTENT='noindex,nofollow'>\n";
+    $html .= "<meta name='robots' content='noindex,nofollow'>\n";
   }
   if ($SiteBase ne "") {
-    $html .= qq(<BASE HREF="$SiteBase">\n);
+    $html .= qq(<base href="$SiteBase">\n);
   }
   unless ($action) {
     $html .= qq(<link rel="alternate" title="$SiteName RSS" href=")
@@ -1395,7 +1395,7 @@ sub GetHtmlHeader {
   $stylesheet = $StyleSheet  if ($stylesheet eq '');
   $stylesheet = ''  if ($stylesheet eq '*');  # Allow removing override
   if ($stylesheet ne '') {
-    $html .= qq(<LINK REL="stylesheet" HREF="$stylesheet">\n);
+    $html .= qq(<link rel="stylesheet" href="$stylesheet">\n);
   }
   $html .= $UserHeader;
   $bodyExtra = '';
@@ -1403,9 +1403,9 @@ sub GetHtmlHeader {
     $bodyExtra = ' ' . $UserBody;
   }
   if ($BGColor ne '') {
-    $bodyExtra .= qq( BGCOLOR="$BGColor");
+    $bodyExtra .= qq( bgcolor="$BGColor");
   }
-  $html .= "</HEAD><BODY$bodyExtra>\n";
+  $html .= "</head><body$bodyExtra>\n";
   return $html;
 }
 
@@ -1695,7 +1695,7 @@ sub CommonMarkup {
     s/\&lt;tt\&gt;(.*?)\&lt;\/tt\&gt;/<tt>$1<\/tt>/gis;  # <tt> (MeatBall)
     s/\&lt;br\&gt;/<br>/gi;  # Allow simple line break anywhere
     if ($HtmlLinks) {
-      s/\&lt;A(\s[^<>]+?)\&gt;(.*?)\&lt;\/a\&gt;/&StoreHref($1, $2)/gise;
+      s/\&lt;a(\s[^<>]+?)\&gt;(.*?)\&lt;\/a\&gt;/&StoreHref($1, $2)/gise;
     }
     if ($FreeLinks) {
       # Consider: should local free-link descriptions be conditional?
@@ -1749,7 +1749,7 @@ sub CommonMarkup {
       s/(^|\n)\s*(\=+)\s+([^\n]+)\s+\=+/&WikiHeading($1, $2, $3)/geo;
     }
     if ($TableMode) {
-      s/((\|\|)+)/"<\/TD><TD COLSPAN=\"" . (length($1)\/2) . "\">"/ge;
+      s/((\|\|)+)/"<\/td><td colspan=\"" . (length($1)\/2) . "\">"/ge;
     }
   }
   return $_;
@@ -1777,27 +1777,27 @@ sub WikiLinesToHtml {
     $TableMode = 0;
     $_ .= "\n";
     if (s/^(\;+)([^:]+\:?)\:/<dt>$2<dd>/) {
-      $code = "DL";
+      $code = "dl";
       $depth = length $1;
     } elsif (s/^(\:+)/<dt><dd>/) {
-      $code = "DL";
+      $code = "dl";
       $depth = length $1;
     } elsif (s/^(\*+)/<li>/) {
-      $code = "UL";
+      $code = "ul";
       $depth = length $1;
     } elsif (s/^(\#+)/<li>/) {
-      $code = "OL";
+      $code = "ol";
       $depth = length $1;
     } elsif ($TableSyntax &&
-             s/^((\|\|)+)(.*)\|\|\s*$/"<TR VALIGN='CENTER' "
-                                      . "ALIGN='CENTER'><TD colspan='"
-                               . (length($1)\/2) . "'>" . EmptyCellsToNbsp($3) . "<\/TD><\/TR>\n"/e) {
-      $code = 'TABLE';
-      $codeAttributes = "BORDER='1'";
+             s/^((\|\|)+)(.*)\|\|\s*$/"<tr valign='center' "
+                                      . "align='center'><td colspan='"
+                               . (length($1)\/2) . "'>" . EmptyCellsToNbsp($3) . "<\/td><\/tr>\n"/e) {
+      $code = 'table';
+      $codeAttributes = "border='1'";
       $TableMode = 1;
       $depth = 1;
     } elsif (/^[ \t].*\S/) {
-      $code = "PRE";
+      $code = "pre";
       $depth = 1;
     } else {
       $depth = 0;
@@ -2210,7 +2210,7 @@ sub WikiHeading {
   $depth = length($depth);
   $depth = 6  if ($depth > 6);
   $text =~ s/^\s*#\s+/&WikiHeadingNumber($depth,$')/e; # $' == $POSTMATCH
-  return $pre . "<H$depth>$text</H$depth>\n";
+  return $pre . "<h$depth>$text</h$depth>\n";
 }
 
 # ==== Difference markup and HTML ====
@@ -2675,7 +2675,7 @@ sub UserDataFilename {
 sub ReportError {
   my ($errmsg) = @_;
 
-  print $q->header, $q->start_html, "<H2>", &QuoteHtml($errmsg), "</H2>", $q->end_html;
+  print $q->header, $q->start_html, "<h2>", &QuoteHtml($errmsg), "</h2>", $q->end_html;
 }
 
 sub ValidId {
@@ -3331,11 +3331,11 @@ sub DoEdit {
   }
   if ($isConflict) {
     $editRows -= 10  if ($editRows > 19);
-    print "\n<H1>" . T('Edit Conflict!') . "</H1>\n";
+    print "\n<h1>" . T('Edit Conflict!') . "</h1>\n";
     if ($isConflict>1) {
       # The main purpose of a new warning is to display more text
       # and move the save button down from its old location.
-      print "\n<H2>" . T('(This is a new conflict)') . "</H2>\n";
+      print "\n<h2>" . T('(This is a new conflict)') . "</h2>\n";
     }
     print "<p><strong>",
           T('Someone saved this page after you started editing.'), " ",
@@ -5051,12 +5051,12 @@ sub DoUpload {
   print '<p>' . Ts('The current upload size limit is %s.', $MaxPost) . ' '
         . Ts('Change the %s variable to increase this limit.', '$MaxPost');
   print '</p><br>';
-  print '<FORM METHOD="post" ACTION="' . $ScriptName
-        . '" ENCTYPE="multipart/form-data">';
+  print '<form method="post" action="' . $ScriptName
+        . '" enctype="multipart/form-data">';
   print '<input type="hidden" name="upload" value="1" />';
-  print T('File to Upload:'), ' <INPUT TYPE="file" NAME="file"><br><BR>';
-  print '<INPUT TYPE="submit" NAME="Submit" VALUE="', T('Upload'), '">';
-  print '</FORM>';
+  print T('File to Upload:'), ' <input type="file" name="file"><br><br>';
+  print '<input type="submit" name="Submit" value="', T('Upload'), '">';
+  print '</form>';
   print &GetCommonFooter(); 
 }
 
@@ -5076,12 +5076,12 @@ sub SaveUpload {
   binmode UPLOADFILE;
   while (<$uploadFilehandle>) { print UPLOADFILE; }
   close UPLOADFILE;
-  print T('The wiki link to your file is:') . "\n<br><BR>";
+  print T('The wiki link to your file is:') . "\n<br><br>";
   $printFilename = $filename;
   $printFilename =~ s/ /\%20/g;  # Replace spaces with escaped spaces
-  print "upload:" . $printFilename . "<BR><BR>\n";
+  print "upload:" . $printFilename . "<br><br>\n";
   if ($filename =~ /$ImageExtensions$/i) {
-    print '<HR><img src="' . $UploadUrl . $filename . '">' . "\n";
+    print '<hr><img src="' . $UploadUrl . $filename . '">' . "\n";
   }
   print &GetCommonFooter();
 }
