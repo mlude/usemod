@@ -579,15 +579,15 @@ sub BrowsePage {
     &OpenKeptRevisions('text_default')  if (!$openKept);
     $fullHtml .= &GetDiffHTML($showDiff, $id, $diffRevision,
                               $revision, $newText);
-    $fullHtml .= "<hr class=wikilinediff>\n";
+    $fullHtml .= qq(<hr class="wikilinediff">\n);
   }
-  $fullHtml .= '<div class=wikitext>';
+  $fullHtml .= '<div class="wikitext">';
   $fullHtml .= &WikiToHTML($Text{'text'});
   $fullHtml .= "</div>\n";
   if (($id eq $RCName) || (T($RCName) eq $id) || (T($id) eq $RCName)) {
     print $fullHtml;
-    print "<hr class=wikilinerc>\n";
-    print '<div class=wikirc>';
+    print qq(<hr class="wikilinerc">\n);
+    print '<div class="wikirc">';
     &DoRc(1);
     print "</div>\n";
     print &GetFooterText($id, $goodRevision);
@@ -1027,9 +1027,9 @@ EOF
   print $html;
   if ($UseDiff) {
     my $label = T('Compare');
-    print "<tr><td align='center'><input type='submit' "
-          . "value='$label'>&nbsp;&nbsp;</td></table></form>\n";
-    print "<hr class=wikilinediff>\n";
+    print '<tr><td align="center"><input type="submit" '
+          . qq(value="$label">&nbsp;&nbsp;</td></table></form>\n);
+    print qq(<hr class="wikilinediff">\n);
     print &GetDiffHTML(&GetParam('defaultdiff', 1), $id, '', '', $newText);
   }
   print &GetCommonFooter();
@@ -1075,9 +1075,9 @@ sub GetHistoryLine {
     my ($c1, $c2) = ('', '');
     $c1 = 'checked="checked"' if 1 == $row;
     $c2 = 'checked="checked"' if 0 == $row;
-    $html .= "<tr><td align='center'><input type='radio' "
-             . "name='diffrevision' value='$rev' $c1> ";
-    $html .= "<input type='radio' name='revision' value='$rev' $c2></td><td>";
+    $html .= '<tr><td align="center"><input type="radio" '
+             . qq(name="diffrevision" value="$rev" $c1> );
+    $html .= qq(<input type="radio" name="revision" value="$rev" $c2></td><td>);
   }
   if (0 == $row) { # current revision
     $html .= &GetPageLinkText($id, Ts('Revision %s', $rev)) . ' ';
@@ -1314,15 +1314,15 @@ sub GetHeader {
   $result .= &GetHtmlHeader("$SiteName: $title", $id);
   return $result  if ($embed);
 
-  $result .= '<div class=wikiheader>';
+  $result .= '<div class="wikiheader">';
   if ($oldId ne '') {
     $result .= $q->h3('(' . Ts('redirected from %s', 
                                &GetEditLink($oldId, &QuoteHtml($oldId)), 1) . ')');
   }
   if ((!$embed) && ($LogoUrl ne "")) {
-    $logoImage = "img src=\"$LogoUrl\" alt=\"$altText\" border=0";
+    $logoImage = qq(img src="$LogoUrl" alt="$altText" border="0");
     if (!$LogoLeft) {
-      $logoImage .= " align=\"right\"";
+      $logoImage .= ' align="right"';
     }
     $header = &ScriptLink($HomePage, "<$logoImage>");
   }
@@ -1332,7 +1332,7 @@ sub GetHeader {
     $result .= $q->h1($header . $title);
   }
   if (&GetParam("toplinkbar", 1)) {
-    $result .= &GetGotoBar($id) . "<hr class=wikilineheader>";
+    $result .= &GetGotoBar($id) . '<hr class="wikilineheader">';
   }
   $result .= "</div>\n";
   return $result;
@@ -1371,17 +1371,17 @@ sub GetHtmlHeader {
   $title = $q->escapeHTML($title);
   $html .= "<html><head><title>$title</title>\n";
   if ($FavIcon ne '') {
-    $html .= '<link rel="shortcut icon" href="' . $FavIcon . '">' 
+    $html .= qq(<link rel="shortcut icon" href="$FavIcon">\n);
   }
   if ($MetaKeywords) {
       my $keywords = $OpenPageName;
       $keywords =~ s/([a-z])([A-Z])/$1, $2/g;
-      $html .= "<meta name='keywords' content='$keywords'>\n" if $keywords;
+      $html .= qq(<meta name="keywords" content="$keywords">\n) if $keywords;
   }
   # we don't want robots indexing our history or other admin pages
   my $action = lc(&GetParam('action', ''));
   unless (!$action or $action eq "rc" or $action eq "index") {
-    $html .= "<meta name='robots' content='noindex,nofollow'>\n";
+    $html .= qq(<meta name="robots" content="noindex,nofollow">\n);
   }
   if ($SiteBase ne "") {
     $html .= qq(<base href="$SiteBase">\n);
@@ -1416,8 +1416,8 @@ sub GetFooterText {
   if (&GetParam('embed', $EmbedWiki)) {
     return $q->end_html;
   }
-  $result = '<div class=wikifooter>';
-  $result .= "<hr class=wikilinefooter>\n";
+  $result = '<div class="wikifooter">';
+  $result .= qq(<hr class="wikilinefooter">\n);
   $result .= &GetFormStart();
   $result .= &GetGotoBar($id);
   if (&UserCanEdit($id, 0)) {
@@ -1481,7 +1481,7 @@ sub GetFooterText {
 sub GetCommonFooter {
   my ($html);
 
-  $html = '<div class=wikifooter>' . '<hr class=wikilinefooter>'
+  $html = '<div class="wikifooter"><hr class="wikilinefooter">'
           . &GetFormStart() . &GetGotoBar('')
           . &GetSearchForm() . $q->end_form;
   if ($FooterNote ne '') {
@@ -1578,7 +1578,7 @@ sub GetRedirectPage {
   # Normally get URL from script, but allow override.
   $FullUrl = $q->url(-full=>1)  if ($FullUrl eq "");
   $url = $FullUrl . &ScriptLinkChar() . &UriEscape($newid);
-  $nameLink = "<a href=\"$url\">$name</a>";
+  $nameLink = qq(<a href="$url">$name</a>);
   if ($RedirType < 3) {
     if ($RedirType == 1) {             # Use CGI.pm
       # NOTE: do NOT use -method (does not work with old CGI.pm versions)
@@ -1731,13 +1731,13 @@ sub CommonMarkup {
     s/\b$ISBNPattern/&StoreISBN($1)/geo;
     if ($ThinLine) {
       if ($OldThinLine) {  # Backwards compatible, conflicts with headers
-        s/====+/<hr noshade class=wikiline size=2>/g;
+        s/====+/<hr noshade="noshade" class="wikiline" size="2">/g;
       } else {             # New behavior--no conflict
-        s/------+/<hr noshade class=wikiline size=2>/g;
+        s/------+/<hr noshade="noshade" class="wikiline" size="2">/g;
       }
-      s/----+/<hr noshade class=wikiline size=1>/g;
+      s/----+/<hr noshade="noshade" class="wikiline" size="1">/g;
     } else {
-      s/----+/<hr class=wikiline>/g;
+      s/----+/<hr class="wikiline">/g;
     }
   }
   if ($doLines) { # 0 = no line-oriented, 1 or 2 = do line-oriented
@@ -1749,7 +1749,7 @@ sub CommonMarkup {
       s/(^|\n)\s*(\=+)\s+([^\n]+)\s+\=+/&WikiHeading($1, $2, $3)/geo;
     }
     if ($TableMode) {
-      s/((\|\|)+)/"<\/td><td colspan=\"" . (length($1)\/2) . "\">"/ge;
+      s/((\|\|)+)/'<\/td><td colspan="' . (length($1)\/2) . '">'/ge;
     }
   }
   return $_;
@@ -1789,11 +1789,11 @@ sub WikiLinesToHtml {
       $code = "ol";
       $depth = length $1;
     } elsif ($TableSyntax &&
-             s/^((\|\|)+)(.*)\|\|\s*$/"<tr valign='center' "
-                                      . "align='center'><td colspan='"
-                               . (length($1)\/2) . "'>" . EmptyCellsToNbsp($3) . "<\/td><\/tr>\n"/e) {
+             s/^((\|\|)+)(.*)\|\|\s*$/'<tr valign="center" '
+                                      . 'align="center"><td colspan="'
+                               . (length($1)\/2) . '">' . EmptyCellsToNbsp($3) . "<\/td><\/tr>\n"/e) {
       $code = 'table';
-      $codeAttributes = "border='1'";
+      $codeAttributes = ' border="1"';
       $TableMode = 1;
       $depth = 1;
     } elsif (/^[ \t].*\S/) {
@@ -1816,7 +1816,7 @@ sub WikiLinesToHtml {
       }
       while (@htmlStack < $depth) {
         push(@htmlStack, $code);
-        $pageHtml .= "<$code $codeAttributes>\n";
+        $pageHtml .= "<$code$codeAttributes>\n";
       }
     }
     if (!$ParseParas) {
@@ -1910,11 +1910,11 @@ sub StoreBracketInterPage {
   }
   $url .= $remotePage;
   if ($BracketImg && $useImage && &ImageAllowed($text)) {
-    $text = "<img src=\"$text\">";
+    $text = qq(<img src="$text">);
   } else {
     $text = "[$text]";
   }
-  return &StoreRaw("<a href=\"$url\">$text</a>");
+  return &StoreRaw(qq(<a href="$url">$text</a>));
 }
 
 sub GetBracketUrlIndex {
@@ -1989,7 +1989,7 @@ sub UrlLink {
   if ($LimitFileUrl && ($NetworkFile && $name =~ m|^file:|)) {
     # Only do remote file:// links. No file:///c|/windows.
     if ($name =~ m|^file://[^/]|) {
-      return ("<a href=\"$name\">$name</a>", $punct);
+      return (qq(<a href="$name">$name</a>), $punct);
     }
     return ($rawname, '');
   }
@@ -2001,9 +2001,9 @@ sub UrlLinkOrImage {
 
   # Restricted image URLs so that mailto:foo@bar.gif is not an image
   if ($useImage && &ImageAllowed($url)) {
-    return "<img src=\"$url\">";
+    return qq(<img src="$url">);
   }
-  return "<a href=\"$url\">$name</a>";
+  return qq(<a href="$url">$name</a>);
 }
 
 sub ImageAllowed {
@@ -2032,11 +2032,11 @@ sub StoreBracketUrl {
     $text = &GetSiteUrl($interlink[0]) . $interlink[1];
   }
   if ($BracketImg && $useImage && &ImageAllowed($text)) {
-    $text = "<img src=\"$text\">";
+    $text = qq(<img src="$text">);
   } else {
     $text = "[$text]";
   }
-  return &StoreRaw("<a href=\"$url\">$text</a>");
+  return &StoreRaw(qq(<a href="$url">$text</a>));
 }
 
 sub StoreBracketLink {
@@ -2073,7 +2073,7 @@ sub StoreRFC {
 sub RFCLink {
   my ($num) = @_;
 
-  return "<a href=\"http://www.faqs.org/rfcs/rfc${num}.html\">RFC $num</a>";
+  return qq(<a href="http://www.faqs.org/rfcs/rfc${num}.html">RFC $num</a>);
 }
 
 sub StoreUpload {
@@ -2201,7 +2201,7 @@ sub WikiHeadingNumber {
     $anchor = '_' . (join '_', @HeadingNumbers) unless $anchor;
     $TableOfContents .= $number . &ScriptLink("$OpenPageName#$anchor",$text)
                         . "</dd>\n<dt> </dt><dd>";
-    return &StoreHref(" name=\"$anchor\"") . $number;
+    return &StoreHref(qq( name="$anchor")) . $number;
 }
 
 sub WikiHeading {
@@ -2385,14 +2385,14 @@ sub ColorDiff {
   $diff =~ s/\r?\n/<br>/g;
   $colorHtml = '';
   if ($color ne '') {
-    $colorHtml = " bgcolor=$color";
+    $colorHtml = qq( bgcolor="$color");
   }
   if ($type) {
-    $classHtml = ' class=wikidiffnew';
+    $classHtml = ' class="wikidiffnew"';
   } else {
-    $classHtml = ' class=wikidiffold';
+    $classHtml = ' class="wikidiffold"';
   }
-  return "<table width=\"95\%\"$colorHtml$classHtml><tr><td>\n" . $diff
+  return qq(<table width="95\%"$colorHtml$classHtml><tr><td>\n) . $diff
          . "</td></tr></table>\n";
 }
 
@@ -3391,8 +3391,8 @@ sub DoEdit {
           "<p>\n";
   }
   if ($preview) {
-    print '<div class=wikipreview>';
-    print "<hr class=wikilinepreview>\n";
+    print '<div class="wikipreview">';
+    print qq(<hr class="wikilinepreview">\n);
     print "<h2>", T('Preview:'), "</h2>\n";
     if ($isConflict) {
       print "<b>",
@@ -3401,14 +3401,14 @@ sub DoEdit {
     }
     $MainPage = $id;
     $MainPage =~ s|/.*||;  # Only the main page name (remove subpage)
-    print &WikiToHTML($oldText) . "<hr class=wikilinepreview>\n";
+    print &WikiToHTML($oldText) . qq(<hr class="wikilinepreview">\n);
     print "<h2>", T('Preview only, not yet saved'), "</h2>\n";
     print "</div>\n";
   }
   print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
-    print '<div class=wikifooter>';
-    print "<hr class=wikilinefooter>\n";
+    print '<div class="wikifooter">';
+    print qq(<hr class="wikilinefooter">\n);
     print &GetHistoryLink($id, T('View other revisions')) . "<br>\n";
     print &GetGotoBar($id);
     print "</div>\n";
@@ -3436,7 +3436,7 @@ sub DoEditPrefs {
   $recentName =~ s/_/ /g;
   &DoNewLogin()  if ($UserID < 400);
   print &GetHeader('', T('Editing Preferences'), '');
-  print '<div class=wikipref>';
+  print '<div class="wikipref">';
   print &GetFormStart();
   print GetHiddenValue("edit_prefs", 1), "\n";
   print '<b>' . T('User Information:') . "</b>\n";
@@ -3464,7 +3464,7 @@ sub DoEditPrefs {
     print '<br>', T('Email Address:'), ' ',
           &GetFormText('email', "", 30, 60);
   }
-  print "<hr class=wikilinepref><b>$recentName:</b>\n";
+  print qq(<hr class="wikilinepref"><b>$recentName:</b>\n);
   print '<br>', T('Default days to display:'), ' ',
         &GetFormText('rcdays', $RcDefault, 4, 9);
   print "<br>", &GetFormCheck('rcnewtop', $RecentTop,
@@ -3480,7 +3480,7 @@ sub DoEditPrefs {
   print "<br>", &GetFormCheck('rcchangehist', 1,
                               T('Use "changes" as link to history'));
   if ($UseDiff) {
-    print '<hr class=wikilinepref><b>', T('Differences:'), "</b>\n";
+    print '<hr class="wikilinepref"><b>', T('Differences:'), "</b>\n";
     print "<br>", &GetFormCheck('diffrclink', 1,
                                 Ts('Show (diff) links on %s', $recentName));
     print "<br>", &GetFormCheck('alldiff', 0,
@@ -3493,7 +3493,7 @@ sub DoEditPrefs {
                          -values=>[1,2,3], -labels=>\%labels,
                          -default=>&GetParam("defaultdiff", 1));
   }
-  print '<hr class=wikilinepref><b>', T('Misc:'), "</b>\n";
+  print '<hr class="wikilinepref"><b>', T('Misc:'), "</b>\n";
   # Note: TZ offset is added by TimeToText, so pre-subtract to cancel.
   print '<br>', T('Server time:'), ' ', &TimeToText($Now-$TimeZoneOffset);
   print '<br>', T('Time Zone offset (hours):'), ' ',
@@ -3514,8 +3514,8 @@ sub DoEditPrefs {
   print $q->end_form;
   print "</div>\n";
   if (!&GetParam('embed', $EmbedWiki)) {
-    print '<div class=wikifooter>';
-    print "<hr class=wikilinefooter>\n";
+    print '<div class="wikifooter">';
+    print qq(<hr class="wikilinefooter">\n);
     print &GetGotoBar('');
     print "</div>\n";
   }
@@ -3737,8 +3737,8 @@ sub DoEnterLogin {
   print '<br>', $q->submit(-name=>'Login', -value=>T('Login')), "\n";
   print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
-    print '<div class=wikifooter>';
-    print "<hr class=wikilinefooter>\n";
+    print '<div class="wikifooter">';
+    print qq(<hr class="wikilinefooter">\n);
     print &GetGotoBar('');
     print "</div>\n";
   }
@@ -3772,8 +3772,8 @@ sub DoLogin {
     print Ts('Login for user ID %s failed.', $unsafe_uid);
   }
   if (!&GetParam('embed', $EmbedWiki)) {
-    print '<div class=wikifooter>';
-    print "<hr class=wikilinefooter>\n";
+    print '<div class="wikifooter">';
+    print qq(<hr class="wikilinefooter">\n);
     print &GetGotoBar('');
     print "</div>\n";
   }
@@ -4572,8 +4572,8 @@ sub DoEditBanned {
   print "<br>", $q->submit(-name=>'Save'), "\n";
   print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
-    print '<div class=wikifooter>';
-    print "<hr class=wikilinefooter>\n";
+    print '<div class="wikifooter">';
+    print qq(<hr class="wikilinefooter">\n);
     print &GetGotoBar('');
     print "</div>\n";
   }
@@ -4628,8 +4628,8 @@ sub DoEditLinks {
   print "<br>", $q->submit(-name=>'Edit'), "\n";
   print $q->end_form;
   if (!&GetParam('embed', $EmbedWiki)) {
-    print '<div class=wikifooter>';
-    print "<hr class=wikilinefooter>\n";
+    print '<div class="wikifooter">';
+    print qq(<hr class="wikilinefooter">\n);
     print &GetGotoBar('');
     print "</div>\n";
   }
