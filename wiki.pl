@@ -1370,9 +1370,6 @@ sub GetHtmlHeader {
   $html = qq(<!DOCTYPE html PUBLIC "$dtd">\n);
   $title = $q->escapeHTML($title);
   $html .= "<html><head><title>$title</title>\n";
-  if ($FavIcon ne '') {
-    $html .= qq(<link rel="shortcut icon" href="$FavIcon">\n);
-  }
   if ($MetaKeywords) {
       my $keywords = $OpenPageName;
       $keywords =~ s/([a-z])([A-Z])/$1, $2/g;
@@ -1396,6 +1393,9 @@ sub GetHtmlHeader {
   $stylesheet = ''  if ($stylesheet eq '*');  # Allow removing override
   if ($stylesheet ne '') {
     $html .= qq(<link rel="stylesheet" href="$stylesheet">\n);
+  }
+  if ($FavIcon ne '') {
+    $html .= qq(<link rel="shortcut icon" href="$FavIcon">\n);
   }
   $html .= $UserHeader;
   $bodyExtra = '';
