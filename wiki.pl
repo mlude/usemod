@@ -1379,6 +1379,7 @@ sub GetHtmlHeader {
   if ($MetaKeywords) {
       my $keywords = $OpenPageName;
       $keywords =~ s/([a-z])([A-Z])/$1, $2/g;
+      $keywords =~ s/\//, /g;
       $html .= qq(<meta name="keywords" content="$keywords">\n) if $keywords;
   }
   # we don't want robots indexing our history or other admin pages
