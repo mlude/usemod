@@ -4168,7 +4168,7 @@ sub DoPost {
     &ReBrowsePage($id, "", 1);
     return;
   }
-  if (($UserID > 399) || ($Section{'id'} > 399))  {
+  if (($UserID >= 400) || ($Section{'id'} >= 400))  {
     $newAuthor = ($UserID ne $Section{'id'});       # known user(s)
   } else {
     $newAuthor = ($Section{'ip'} ne $authorAddr);  # hostname fallback
