@@ -1510,7 +1510,7 @@ sub GetMinimumFooter {
 }
 
 sub GetFormStart {
-  return $q->start_form("POST", "$ScriptName",
+  return $q->start_form("POST", $ScriptName,
                        "application/x-www-form-urlencoded");
 }
 
@@ -3768,7 +3768,7 @@ sub UpdateEmailList {
       &RequestLock() or die(T('Could not get mail lock'));
       if (!open(NOTIFY, ">", $EmailFile)) {
         &ReleaseLock();
-        die(Ts('Could not overwrite %s:', "$EmailFile") . " $!\n");
+        die(Ts('Could not overwrite %s:', $EmailFile) . " $!\n");
       }
       foreach (@old_emails) {
         print NOTIFY "$_" unless /$new_email/;
