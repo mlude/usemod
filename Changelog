@@ -1,5 +1,5 @@
 
-Changes for next release:
+Changes for release 1.2.0 (November 05, 2017):
 * switch DTD to HTML 4.0.1 Transitional
 * cleanup generated HTML code
 * added CSS class wikibody to include all except wikiheader and wikifooter
