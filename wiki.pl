@@ -2678,12 +2678,17 @@ sub LoadUserData {
   my ($data, $status);
 
   %UserData = ();
+  if ($uid < 200) {
+    $UserID = 111;  # invalid UserID
+    return 0;
+  }
   ($status, $data) = &ReadFile(&UserDataFilename($uid));
   if (!$status) {
     $UserID = 112;  # Could not open file.  Consider warning message?
-    return;
+    return 0;
   }
   %UserData = split(/$FS1/, $data, -1);  # -1 keeps trailing null fields
+  return 1;
 }
 
 sub UserDataFilename {
