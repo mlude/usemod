@@ -2435,7 +2435,7 @@ sub OpenNewSection {
   $Section{'revision'} = 0;     # Number of edited times
   $Section{'tscreate'} = $Now;  # Set once at creation
   $Section{'ts'} = $Now;        # Updated every edit
-  $Section{'ip'} = $ENV{REMOTE_ADDR};
+  $Section{'ip'} = GetIP();
   $Section{'host'} = '';        # Updated only for real edits (can be slow)
   $Section{'id'} = $UserID;
   $Section{'username'} = &GetParam("username", "");
@@ -2540,7 +2540,7 @@ sub SaveSection {
 
   $Section{'revision'} += 1;   # Number of edited times
   $Section{'ts'} = $Now;       # Updated every edit
-  $Section{'ip'} = $ENV{REMOTE_ADDR};
+  $Section{'ip'} = GetIP();
   $Section{'id'} = $UserID;
   $Section{'username'} = &GetParam("username", "");
   $Section{'data'} = $data;
@@ -2820,7 +2820,7 @@ sub UserIsBanned {
   ($status, $data) = &ReadFile("$DataDir/banlist");
   return 0  if (!$status);  # No file exists, so no ban
   $data =~ s/\r//g;
-  $ip = $ENV{'REMOTE_ADDR'};
+  $ip = GetIP();
   $host = &GetRemoteHost(0);
   foreach (split(/\n/, $data)) {
     next  if ((/^\s*$/) || (/^#/));  # Skip empty, spaces, or comments
@@ -3169,7 +3169,7 @@ sub GetHiddenValue {
 }
 
 sub GetIP {
-  return $ENV{REMOTE_ADDR};
+  return $ENV{REMOTE_ADDR} || '127.0.0.1';
 }
 
 sub GetRemoteHost {
@@ -3819,7 +3819,7 @@ sub DoNewLogin {
   # The cookie will be transmitted in the next header
   %UserData = %UserCookie;
   $UserData{'createtime'} = $Now;
-  $UserData{'createip'} = $ENV{REMOTE_ADDR};
+  $UserData{'createip'} = GetIP();
   &SaveUserData();
 }
 
@@ -4112,7 +4112,7 @@ sub DoPost {
   my $oldconflict = &GetParam("oldconflict", "");
   my $isEdit = 0;
   my $editTime = $Now;
-  my $authorAddr = $ENV{REMOTE_ADDR};
+  my $authorAddr = GetIP();
 
   if ($FreeLinks) {
     $unsafe_id = &FreeToNormal($unsafe_id);
