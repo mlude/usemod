@@ -3852,10 +3852,9 @@ sub DoLogin {
   $unsafe_uid = &GetParam("p_userid", "");
   $uid = &SanitizeUserID($unsafe_uid);
   $password = &GetParam("p_password",  "");
-  if (($uid > 199) && ($password ne "") && ($password ne "*")) {
-    $UserID = $uid;
-    &LoadUserData($uid);
-    if ($UserID > 199) {
+  if (($password ne "") && ($password ne "*")) {
+    if (&LoadUserData($uid)) {
+      $UserID = $uid;
       if (defined($UserData{'password'}) &&
           ($UserData{'password'} eq $password)) {
         $SetCookie{'id'} = $uid;
