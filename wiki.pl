@@ -455,9 +455,8 @@ sub InitCookie {
   %UserCookie = $q->cookie($CookieName);
   $unsafe_uid = $UserCookie{'id'} || 0;
   $uid = &SanitizeUserID($unsafe_uid);
-  $UserID = $uid;
-  if ($uid > 199) {
-    &LoadUserData($uid);
+  if (&LoadUserData($uid)) {
+    $UserID = $uid;
     if (($UserData{'id'}       != $UserCookie{'id'})      ||
         ($UserData{'randkey'}  != $UserCookie{'randkey'})) {
       $UserID = 113;
