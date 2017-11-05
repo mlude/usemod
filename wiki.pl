@@ -446,7 +446,7 @@ sub InitRequest {
 }
 
 sub InitCookie {
-  my $unsafe_uid;
+  my ($unsafe_uid, $uid);
 
   %SetCookie = ();
   $TimeZoneOffset = 0;
@@ -454,9 +454,10 @@ sub InitCookie {
   %UserData = ();          # Fix for persistent environments.
   %UserCookie = $q->cookie($CookieName);
   $unsafe_uid = $UserCookie{'id'} || 0;
-  $UserID = &SanitizeUserID($unsafe_uid);
-  if ($UserID > 199) {
-    &LoadUserData($UserID);
+  $uid = &SanitizeUserID($unsafe_uid);
+  $UserID = $uid;
+  if ($uid > 199) {
+    &LoadUserData($uid);
     if (($UserData{'id'}       != $UserCookie{'id'})      ||
         ($UserData{'randkey'}  != $UserCookie{'randkey'})) {
       $UserID = 113;
