@@ -2673,10 +2673,11 @@ sub OpenKeptRevisions {
 }
 
 sub LoadUserData {
+  my ($uid) = @_;
   my ($data, $status);
 
   %UserData = ();
-  ($status, $data) = &ReadFile(&UserDataFilename($UserID));
+  ($status, $data) = &ReadFile(&UserDataFilename($uid));
   if (!$status) {
     $UserID = 112;  # Could not open file.  Consider warning message?
     return;
@@ -3847,7 +3848,7 @@ sub DoLogin {
   $password = &GetParam("p_password",  "");
   if (($uid > 199) && ($password ne "") && ($password ne "*")) {
     $UserID = $uid;
-    &LoadUserData();
+    &LoadUserData($uid);
     if ($UserID > 199) {
       if (defined($UserData{'password'}) &&
           ($UserData{'password'} eq $password)) {
