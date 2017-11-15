@@ -1483,7 +1483,7 @@ sub GetFooterText {
     $result .= T($FooterNote);
   }
   $result .= "</div>\n";
-  $result .= &GetMinimumFooter();
+  $result .= $q->end_html;
   return $result;
 }
 
