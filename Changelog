@@ -1,6 +1,7 @@
 
 Changes for bugfix release:
 * closing div for class wikibody was missing at some places, added
+* put <hr> class wikilinerc inside of div for class wikirc
 
 Changes for release 1.2.0 (November 05, 2017):
 * switch DTD to HTML 4.0.1 Transitional

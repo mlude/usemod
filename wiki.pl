@@ -591,8 +591,8 @@ sub BrowsePage {
   $fullHtml .= "</div>\n";
   if (($id eq $RCName) || (T($RCName) eq $id) || (T($id) eq $RCName)) {
     print $fullHtml;
-    print qq(<hr class="wikilinerc">\n);
     print '<div class="wikirc">';
+    print qq(<hr class="wikilinerc">\n);
     &DoRc(1);
     print "</div>\n";
     print &GetFooterText($id, $goodRevision);
