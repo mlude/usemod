@@ -1615,6 +1615,7 @@ sub GetRedirectPage {
     }
     $html .= "\n<p>";
     $html .= Ts('Follow the %s link to continue.', $nameLink);
+    $html .= "</div>\n"; # end wikibody
     $html .= &GetMinimumFooter();
   }
   return $html;
@@ -3612,6 +3613,7 @@ sub DoEditPrefs {
   print '<br>', $q->submit(-name=>'Save', -value=>T('Save')), "\n";
   print $q->end_form;
   print "</div>\n";
+  print "</div>\n"; # end wikibody
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class="wikifooter">';
     print qq(<hr class="wikilinefooter">\n);
@@ -3835,6 +3837,7 @@ sub DoEnterLogin {
                            -size=>15, -maxlength=>50);
   print '<br>', $q->submit(-name=>'Login', -value=>T('Login')), "\n";
   print $q->end_form;
+  print "</div>\n"; # end wikibody
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class="wikifooter">';
     print qq(<hr class="wikilinefooter">\n);
@@ -3869,6 +3872,7 @@ sub DoLogin {
   } else {
     print Ts('Login for user ID %s failed.', $unsafe_uid);
   }
+  print "</div>\n"; # end wikibody
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class="wikifooter">';
     print qq(<hr class="wikilinefooter">\n);
@@ -4669,6 +4673,7 @@ sub DoEditBanned {
   print &GetTextArea('banlist', $banList, 12, 50);
   print "<br>", $q->submit(-name=>'Save'), "\n";
   print $q->end_form;
+  print "</div>\n"; # end wikibody
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class="wikifooter">';
     print qq(<hr class="wikilinefooter">\n);
@@ -4725,6 +4730,7 @@ sub DoEditLinks {
                       -label=>"Substitute text for rename");
   print "<br>", $q->submit(-name=>'Edit'), "\n";
   print $q->end_form;
+  print "</div>\n"; # end wikibody
   if (!&GetParam('embed', $EmbedWiki)) {
     print '<div class="wikifooter">';
     print qq(<hr class="wikilinefooter">\n);
