@@ -4194,6 +4194,14 @@ sub DoPost {
     &DoEdit($id, 0, $pgtime, $string, 1);
     return;
   }
+  if ($UseEditHash) {
+    my $p_hash = &GetParam("hash", "");
+    if (!&CheckHash("edit", $p_hash, $id, $pgtime)) {
+      &ReleaseLock();
+      &DoEdit($id, 0, $pgtime, $string, 1);
+      return;
+    }
+  }
   $user = &GetParam("username", "");
   # If the person doing editing chooses, send out email notification
   if ($EmailNotify) {
