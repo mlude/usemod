@@ -919,6 +919,15 @@ sub GetRcRss {
 RSS
   ($headList, $items) = &GetRc(0, @_);
   $rssHeader .= $headList;
+  if (! $RssLogoUrl) {
+    $RssLogoUrl = $FullUrl;
+    if ($LogoUrl =~ /^\//) {
+      $RssLogoUrl =~ s/^(http:\/\/[^\/]*)(\/.*)$/$1/;
+      $RssLogoUrl .= $LogoUrl;
+    } else {
+      $RssLogoUrl = $LogoUrl;
+    }
+  }
   return <<RSS ;
 $rssHeader
             </rdf:Seq>
