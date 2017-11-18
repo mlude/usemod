@@ -4,6 +4,7 @@ Changes for bugfix release:
 * put <hr> class wikilinerc inside of div for class wikirc
 * fix EditHash
 * RSS: fall back to LogoUrl for RssLogoUrl
+* cleanup generated HTML code on history page
 
 Changes for release 1.2.0 (November 05, 2017):
 * switch DTD to HTML 4.0.1 Transitional

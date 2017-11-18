@@ -1029,7 +1029,7 @@ sub DoHistory {
           <input type="hidden" name="action" value="browse">
           <input type="hidden" name="diff" value="1">
           <input type="hidden" name="id" value="$id">
-      <table border="0" width="100%"><tr>
+      <table border="0" width="100%">
 EOF
   }
   $html = &GetHistoryLine($id, $Page{'text_default'}, $canEdit, $row++);
@@ -1111,7 +1111,7 @@ sub GetHistoryLine {
     $summary = &QuoteHtml($summary);   # Thanks Sunir! :-)
     $html .= "<b>[$summary]</b> ";
   }
-  $html .= $UseDiff ? "</tr>\n" : "<br>\n";
+  $html .= $UseDiff ? "</td></tr>\n" : "<br>\n";
   return $html;
 }
 
