@@ -1,5 +1,5 @@
 # == Configuration =====================================================
-# Original version from UseModWiki 1.2.0
+# Original version from UseModWiki 1.2.1
 
 $CookieName  = "Wiki";          # Name for this wiki (for multi-wiki sites)
 $SiteName    = "Wiki";          # Name of site (used for titles)

@@ -1,5 +1,5 @@
 
-Changes for bugfix release:
+Changes for bugfix release 1.2.1 (December 01, 2017):
 * closing div for class wikibody was missing at some places, added
 * put <hr> class wikilinerc inside of div for class wikirc
 * fix EditHash
