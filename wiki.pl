@@ -1381,8 +1381,10 @@ sub GetHtmlHeader {
   my ($title, $id) = @_;
   my ($dtd, $html, $bodyExtra, $stylesheet);
 
-  $dtd = '-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd';
-  $html = qq(<!DOCTYPE html PUBLIC "$dtd">\n);
+  $CGI::XHTML = 0;
+  $dtd = $q->default_dtd( '-//W3C//DTD HTML 4.01 Transitional//EN',
+                          'http://www.w3.org/TR/html4/loose.dtd' );
+  $html = qq(<!DOCTYPE html PUBLIC "$dtd->[0]" "$dtd->[1]">\n);
   $title = $q->escapeHTML($title);
   $html .= "<html><head><title>$title</title>\n";
   if ($MetaKeywords) {
