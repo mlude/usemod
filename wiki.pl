@@ -1,5 +1,5 @@
 #!/usr/bin/perl -wT
-# UseModWiki version 1.2.1 (December 01, 2017)
+# UseModWiki version 1.2.2 (November 10, 2023)
 # Copyright (C) 2000-2003 Clifford A. Adams  <caadams@usemod.com>
 # Copyright (C) 2002-2003 Sunir Shah  <sunir@sunir.org>
 # with some changes from  Markus Lude <markus.lude@gmx.de>
@@ -5122,7 +5122,7 @@ sub RenamePage {
 
 sub DoShowVersion {
   print &GetHeader('', T('Displaying Wiki Version'), '');
-  print "<p>UseModWiki version 1.2.1</p>\n";
+  print "<p>UseModWiki version 1.2.2</p>\n";
   print &GetCommonFooter();
 }
 
