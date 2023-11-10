@@ -2,7 +2,7 @@ Upgrade instructions for UseModWiki 1.0
 Last updated: September 11, 2003
 See the INSTALL file for new installations.
 
-Please email usemod@usemod.com with any questions, comments, or suggestions.
+Please email usemod@usemod.org with any questions, comments, or suggestions.
 
 ------
 Upgrading from 0.90, 0.91, or 0.92:
@@ -32,7 +32,7 @@ you should change $FreeLinks to 0.
 
 ------
 Upgrading from older versions (before 0.90) is possible, but requires
-a conversion utility for the database.  Contact usemod@usemod.com for
+a conversion utility for the database.  Contact usemod@usemod.org for
 upgrade instructions.
 
 ------

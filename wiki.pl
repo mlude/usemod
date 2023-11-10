@@ -4463,7 +4463,7 @@ sub WriteDiff {
 # no one edits the page by the time the keep expiry time
 # elapses, then no one has vetoed the last action, and the
 # action is accepted.
-# See http://www.usemod.com/cgi-bin/mb.pl?PageDeletion
+# See http://meatballwiki.org/wiki/PageDeletion
 sub ProcessVetos {
   my ($expirets);
 

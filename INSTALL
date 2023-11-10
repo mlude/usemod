@@ -6,7 +6,7 @@ See the UPGRADE file for instructions to upgrade an existing wiki.
 New Installations:
 
 The following instructions should work for most UNIX-based systems.
-See http://www.usemod.com/cgi-bin/wiki.pl?UseModWiki/InstallWindows for
+See https://www.usemod.org/cgi-bin/wiki.pl?UseModWiki/InstallWindows for
 instructions if you are installing under Microsoft Windows.
 
 1. Copy the file "wiki.pl" to your cgi-bin directory.  You can rename

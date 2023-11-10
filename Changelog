@@ -1,6 +1,7 @@
 
 Changes for bugfix release:
 * fix HTML markup, no XHTML
+* domain has changed to usemod.org
 
 Changes for bugfix release 1.2.1 (December 01, 2017):
 * closing div for class wikibody was missing at some places, added
@@ -123,5 +124,5 @@ Changes for bugfix release 1.0.1 (July 9, 2007):
   fix contributed by UngarPeter
 
 If I've forgotten something or someone, please leave a note on
-UseMod:MarkusLude or send mail to usemod@usemod.com.
+UseMod:MarkusLude or send mail to usemod@usemod.org.
 
