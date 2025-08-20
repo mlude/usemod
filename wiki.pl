@@ -424,7 +424,7 @@ sub InitRequest {
   } else {
     $CGI::DISABLE_UPLOADS = 1;  # no uploads
   }
-  $q = new CGI;
+  $q ||= new CGI;
   # Fix some issues with editing UTF8 pages (if charset specified)
   if ($HttpCharset ne '') {
     $q->charset($HttpCharset);
